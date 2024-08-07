@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .login{
+            display: flex;
+            margin: auto;
+            height: 100vh;
+        }
+        .login-container{
+            display: flex;
+            justify-content: center;
+            margin: auto;
+            padding: 240px;
+        }
+        .login-content{
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            box-shadow: 0 12px 30px 0px rgba(0, 1, 193, .2);
+            width: max-content;
+            padding: 120px;
+            transition: .3s ease-in all;
+        }
+        .login-form form{ 
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .login-form h2{
+            margin-bottom: 2rem;
+        }
+        .icons{
+            font-size: 1rem;
+        }
+        .form-input{
+            display: flex;
+            gap: 1rem;
+        }
+        .form-input i{
+            width: 1rem;
+        }
+        .form-input p{
+            font-size: 12px;
+            width: 250px;
+        }
+        .login-header{
+            display: flex;
+            flex-direction: column;
+        }
+        .login-header img{
+            width: 200px;
+            margin: auto;
+        }
+        .login-header a{
+            font-size: 12px;
+            text-align: center;
+            text-decoration: underline;
+        }
+        .form-input input[type=text],input[type=password],input[type=email]{
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid #999;
+            padding-bottom: 5px;
+            font-family: Poppins;
+            box-sizing: border-box;
+        }
+        .form-input input[type=submit]{
+            background: none;
+            border: 1px solid #4e4ffa;
+            color: #818998;
+            width: fit-content;
+            padding: .5rem 2rem;
+            transition: .3s ease all;
+        }
+        .form-input input[type=submit]:hover{
+            color: #fff;
+            background-color: #4e4ffa;
+        }
+        .d-none{
+            display: none;
+        }
+        /* Extra small devices (phones, 600px and down) */
+        @media only screen and (max-width: 600px) {
+            .login-container{
+                padding: 50px;
+            }
+            .login-content{
+                flex-direction: column;
+                padding: 30px;
+            }
+            #login .login-content{
+                flex-direction: column-reverse;
+            }
+            .login-header{
+                gap: 1rem;
+            }
+        }
+
+        /* Small devices (portrait tablets and large phones, 600px and up) */
+        @media only screen and (min-width: 600px) {
+
+        }
+
+        /* Medium devices (landscape tablets, 768px and up) */
+        @media only screen and (min-width: 768px) {
+            .login-container{
+                padding: 80px;
+            }
+            .login-content{
+                padding: 60px;
+            }
+        }
+
+        /* Large devices (laptops/desktops, 992px and up) */
+        @media only screen and (min-width: 992px) {
+            .login-content{
+                justify-content: space-evenly;
+            }
+        }
+
+        /* Extra large devices (large laptops and desktops, 1200px and up) */
+        @media only screen and (min-width: 1200px) {
+
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <section class="login" id="register">
+        <div class="login-container">
+            <div class="login-content">
+                <div class="login-form">
+                    <h2>Sign Up</h2>
+                    <form action="" method="post">
+                        <div class="form-input">
+                            <i class="fa-solid fa-user icons"></i>
+                            <input type="text" placeholder="Enter Username" name="username" required>
+                        </div>
+                        <div class="form-input">
+                            <i class="fa-solid fa-envelope icons"></i>
+                        <input type="email" placeholder="Enter Email" name="email" required>
+                        </div>
+                        <div class="form-input">
+                            <i class="fa-solid fa-lock icons"></i>
+                        <input type="password" placeholder="Enter Password" name="password" required>
+                        </div>
+                        <div class="form-input">
+                            <i class="fa-solid fa-user-lock icons"></i>
+                            <input type="password" placeholder="Confirm Password" name="confirm-password" required>
+                        </div>
+                        <div class="form-input">
+                            <input type="checkbox" name="password" required>
+                            <p> I agree all statements in Terms of service</p>
+                        </div>
+                        <div class="form-input">
+                            <input type="submit" id="signup" value="Sign up" name="signup">
+                        </div>
+                    </form>
+                </div>
+                <div class="login-header">
+                    <img src="assets/logo/realdeals.jpg" alt="">
+                    <a href="#login" onclick="toggleSignin()">I have already an account</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="login d-none" id="login">
+        <div class="login-container">
+            <div class="login-content">
+                <div class="login-header">
+                    <img src="assets/logo/realdeals.jpg" alt="">
+                    <a href="#register" onclick="toggleSignup()">Create an account</a>
+                </div>
+                <div class="login-form">
+                    <h2>Login</h2>
+                    <form action="" method="post">
+                        <div class="form-input">
+                            <i class="fa-solid fa-user icons"></i>
+                            <input type="text" placeholder="Enter Username" name="username" required>
+                        </div>
+                        <div class="form-input">
+                            <i class="fa-solid fa-lock icons"></i>
+                        <input type="password" placeholder="Enter Password" name="password" required>
+                        </div>
+                        <div class="form-input">
+                            <input type="checkbox" name="password" required>
+                            <p> Remember me</p>
+                        </div>
+                        <div class="form-input">
+                            <input type="submit" id="signin" value="Sign in" name="signin">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+<script>
+    function toggleSignin() {
+        document.getElementById('login').style.display = 'flex';
+        document.getElementById('register').style.display = 'none';
+    }
+    function toggleSignup() {
+        document.getElementById('register').style.display = 'flex';
+        document.getElementById('login').style.display = 'none';
+    }
+</script>
