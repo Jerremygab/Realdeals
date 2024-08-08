@@ -54,6 +54,129 @@
 			<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <style>
+            .login{
+                display: flex;
+                margin: auto;
+                height: 100vh;
+            }
+            .login-container{
+                display: flex;
+                justify-content: center;
+                margin: auto;
+                padding: 240px;
+            }
+            .login-content{
+                display: flex;
+                justify-content: space-between;
+                gap: 2rem;
+                box-shadow: 0 12px 30px 0px rgba(0, 1, 193, .2);
+                width: max-content;
+                padding: 120px;
+                transition: .3s ease-in all;
+            }
+            .login-form form{ 
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .login-form h2{
+                margin-bottom: 2rem;
+            }
+            .icons{
+                font-size: 1rem;
+            }
+            .form-input{
+                display: flex;
+                gap: 1rem;
+            }
+            .form-input i{
+                width: 1rem;
+            }
+            .form-input p{
+                font-size: 12px;
+                width: 250px;
+            }
+            .login-header{
+                display: flex;
+                flex-direction: column;
+            }
+            .login-header img{
+                width: 200px;
+                margin: auto;
+            }
+            .login-header a{
+                font-size: 12px;
+                text-align: center;
+                text-decoration: underline;
+            }
+            .form-input input[type=text],input[type=password],input[type=email]{
+                width: 100%;
+                border: none;
+                border-bottom: 1px solid #999;
+                padding-bottom: 5px;
+                font-family: Poppins;
+                box-sizing: border-box;
+            }
+            .form-input input[type=submit]{
+                background: none;
+                border: 1px solid #4e4ffa;
+                color: #818998;
+                width: fit-content;
+                padding: .5rem 2rem;
+                transition: .3s ease all;
+            }
+            .form-input input[type=submit]:hover{
+                color: #fff;
+                background-color: #4e4ffa;
+            }
+            .d-none{
+                display: none;
+            }
+            /* Extra small devices (phones, 600px and down) */
+            @media only screen and (max-width: 600px) {
+                .login-container{
+                    padding: 50px;
+                }
+                .login-content{
+                    flex-direction: column;
+                    padding: 30px;
+                }
+                #login .login-content{
+                    flex-direction: column-reverse;
+                }
+                .login-header{
+                    gap: 1rem;
+                }
+            }
+    
+            /* Small devices (portrait tablets and large phones, 600px and up) */
+            @media only screen and (min-width: 600px) {
+    
+            }
+    
+            /* Medium devices (landscape tablets, 768px and up) */
+            @media only screen and (min-width: 768px) {
+                .login-container{
+                    padding: 80px;
+                }
+                .login-content{
+                    padding: 60px;
+                }
+            }
+    
+            /* Large devices (laptops/desktops, 992px and up) */
+            @media only screen and (min-width: 992px) {
+                .login-content{
+                    justify-content: space-evenly;
+                }
+            }
+    
+            /* Extra large devices (large laptops and desktops, 1200px and up) */
+            @media only screen and (min-width: 1200px) {
+    
+            }
+        </style>
 
     </head>
 	

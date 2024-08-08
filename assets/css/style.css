@@ -271,6 +271,90 @@ nav.navbar.bootsnav .navbar-toggle i{color: #4e4ffa;}
     color: #4e4ffa;
 }
 /*.welcome-hero-txt*/
+/* login-page */
+.login{
+    display: flex;
+    margin: auto;
+    height: 100vh;
+}
+.login-container{
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    padding: 240px;
+}
+.login-content{
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    box-shadow: 0 12px 30px 0px rgba(0, 1, 193, .2);
+    width: max-content;
+    padding: 120px;
+    transition: .3s ease-in all;
+}
+.login-form form{ 
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.login-form h2{
+    margin-bottom: 2rem;
+}
+.form-input .icons{
+    max-width: 20px;
+}
+.form-input{
+    display: flex;
+    gap: 1rem;
+}
+.form-input i{
+    width: 2rem;
+}
+.form-input p{
+    font-size: 12px;
+    width: 250px;
+}
+.login-header{
+    display: flex;
+    flex-direction: column;
+}
+.login-header img{
+    width: 200px;
+    margin: auto;
+}
+.login-header a{
+    font-size: 12px;
+    text-align: center;
+    text-decoration: underline;
+}
+.form-input input[type=text],input[type=password],input[type=email]{
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #999;
+    padding-bottom: 5px;
+    font-family: Poppins;
+    box-sizing: border-box;
+}
+.form-input input[type=submit]{
+    background: none;
+    border: 1px solid #4e4ffa;
+    color: #818998;
+    width: fit-content;
+    padding: .5rem 2rem;
+    transition: .3s ease all;
+}
+.form-input input[type=submit]:hover{
+    color: #fff;
+    background-color: #4e4ffa;
+}
+.d-none{
+    display: none;
+}
+
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+
+/* login-page */
 
 /*-------------------------------------
         4. Model-Search
