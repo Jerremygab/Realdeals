@@ -1,5 +1,5 @@
-let mainImage = document.querySelector('.new-cars .container .quickview-content-box .quickview-content-item .quickview-content-img .quickview-main-img img');
-let subImages = document.querySelectorAll('.new-cars .container .quickview-content-box .quickview-content-item .quickview-content-img .quickview-sub-img img');
+let mainImage = document.querySelector('.new-cars .container  .quickview-content-box .quickview-content-item .quickview-content-img .quickview-main-img img');
+let subImages = document.querySelectorAll('.new-cars .container  .quickview-content-box .quickview-content-item .quickview-content-img .quickview-sub-img img');
 
 subImages.forEach(images =>{
    images.onclick = () =>{

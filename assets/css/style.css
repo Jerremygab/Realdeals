@@ -209,6 +209,21 @@ nav.navbar.bootsnav .navbar-toggle i{color: #4e4ffa;}
 .modal-backdrop.in {
     display: none;
 }
+.modal-btn{
+    font-size: 14px;
+    font-weight: 300;
+    border: 1px solid #4e4ffa;
+    padding: .5rem 2rem;
+    transition: .3s ease-in all;
+}
+.modal-btn:hover{
+    color: #fff;
+    background-color: #4e4ffa;
+    font-size: 14px;
+    padding: .5rem 2rem; 
+    font-weight: 300;
+    text-transform: none;
+}
   
 
 /*-------------------------------------
@@ -336,11 +351,12 @@ nav.navbar.bootsnav .navbar-toggle i{color: #4e4ffa;}
     box-sizing: border-box;
 }
 .form-input input[type=submit]{
+    font-size: 14px;
+    width: 100%;
     background: none;
     border: 1px solid #4e4ffa;
     color: #818998;
-    width: fit-content;
-    padding: .5rem 2rem;
+    padding: .6rem 2rem;
     transition: .3s ease all;
 }
 .form-input input[type=submit]:hover{
@@ -557,6 +573,13 @@ nav.navbar.bootsnav .navbar-toggle i{color: #4e4ffa;}
 .featured-cars-txt h2 a span{text-transform: uppercase;}
 .featured-cars-txt h3{margin-bottom: 10px;}
 .featured-cars-txt h3,.featured-cars-txt p{font-size: 13px;}
+.ratings{
+    font-size: 12px;
+    color: #ffe234;
+}
+.featured-cars-txt p{
+    font-size: 10px;
+}
 .cart-btn{
     display: flex;
     gap: 1rem;
@@ -580,6 +603,8 @@ nav.navbar.bootsnav .navbar-toggle i{color: #4e4ffa;}
 }
 
 .single-product-box{
+    display: flex;
+    flex-direction: column;
     border: 1px solid #dadfe9;
     padding: 2rem;
     transition: .3s ease-in all;
@@ -587,6 +612,13 @@ nav.navbar.bootsnav .navbar-toggle i{color: #4e4ffa;}
 }
 .single-product-box:hover{
     box-shadow: 0 12px 30px 0px rgba(0,1,193,.2);
+}
+.product-img-box{
+    display: flex;
+    justify-content: center;
+}
+.product-img img{
+    height: 150px;
 }
 .add-btn{
     display: flex;
@@ -639,7 +671,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #4e4ffa;}
 .quickview-content-text {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
 }
 .quickview-cart-btn input[type=submit]{
     background: transparent;
@@ -652,6 +684,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #4e4ffa;}
 }
 td:nth-child(odd) {
     font-weight: 600;
+    padding-right: 2rem;
   }
 
 
