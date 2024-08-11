@@ -300,8 +300,9 @@ nav.navbar.bootsnav .navbar-toggle i{color: #4e4ffa;}
 }
 .login-content{
     display: flex;
+    flex-direction: row-reverse;
     justify-content: space-between;
-    gap: 2rem;
+    gap: 5rem;
     box-shadow: 0 12px 30px 0px rgba(0, 1, 193, .2);
     width: max-content;
     padding: 120px;
@@ -577,7 +578,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #4e4ffa;}
     font-size: 12px;
     color: #ffe234;
 }
-.featured-cars-txt p{
+.solds p{
     font-size: 10px;
 }
 .cart-btn{
@@ -679,7 +680,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #4e4ffa;}
 }
 .single-service-table td{
     text-align: left;
-    /* padding-top: 3px; */
+    padding-top: 5px;
     vertical-align:top;
 }
 td:nth-child(odd) {

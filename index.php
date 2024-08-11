@@ -42,7 +42,7 @@ if(isset($_SESSION['user_id'])){
 					<p>
 						Get your desired computer parts in resonable price, play With Style. Best Gaming Experience. 
 					</p>
-					<button class="welcome-btn" onclick="window.location.href='#'">Shop now</button>
+					<button class="welcome-btn" onclick="window.location.href='shop.php'">Shop now</button>
 				</div>
 			</div>
 
@@ -97,7 +97,7 @@ if(isset($_SESSION['user_id'])){
 								</div>
 								<h2><a href="#">largest PC dealership</a></h2>
 								<p>
-									Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto, sit! Aliquid corrupti id veritatis quidem.
+									We provide an unparalleled selection of cutting-edge technology and exceptional service to meet all your computing needs.
 								</p>
 							</div>
 						</div>
@@ -108,7 +108,7 @@ if(isset($_SESSION['user_id'])){
 								</div>
 								<h2><a href="#">repair warranty</a></h2>
 								<p>
-									Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto, sit! Aliquid corrupti id veritatis quidem.
+									Protect your investment with our comprehensive repair warranty, ensuring hassle-free repairs and peace of mind for all your tech needs.
 								</p>
 							</div>
 						</div>
@@ -119,7 +119,7 @@ if(isset($_SESSION['user_id'])){
 								</div>
 								<h2><a href="#">insurance support</a></h2>
 								<p>
-									Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto, sit! Aliquid corrupti id veritatis quidem.
+									Expert guidance and comprehensive assistance to ensure you navigate claims, coverage options, and policy management with confidence and ease.
 								</p>
 							</div>
 						</div>
@@ -449,6 +449,7 @@ if(isset($_SESSION['user_id'])){
 		<!--contact end-->
 		
 		<?php include 'components/scripts.php'; ?>
+		<script src="assets/js/script.js"></script>
         
     </body>
 	

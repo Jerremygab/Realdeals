@@ -66,7 +66,7 @@ if(isset($_SESSION['user_id'])){
                                             <img src="assets/images/products/<?= $fetch_product['pimage1']; ?>" alt="">
                                         </div>
                                     </div>
-                                    <div class="featured-cars-txt">
+                                    <div class="featured-cars-txt solds">
                                         <h2><a><?= $fetch_product['pname']; ?> </a></h2>
                                         <h3>$<?= $fetch_product['price']; ?></h3>
                                         <div class="featured-cars-rating">

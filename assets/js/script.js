@@ -25,14 +25,3 @@ function setEqualHeight() {
 
 window.onload = setEqualHeight;
 window.onresize = setEqualHeight;
-
-
-function toggleSignin() {
-    document.getElementById('login').style.display = 'block';
-    document.getElementById('register').style.display = 'none';
-}
-function toggleSignup() {
-    document.getElementById('register').style.display = 'block';
-    document.getElementById('login').style.display = 'none';
-}
-
