@@ -2,7 +2,7 @@
    if(isset($message)){
       foreach($message as $message){
          echo '
-         <div class="message" style="display: none;">
+         <div class="alert-message">
             <p>'.$message.'</p>
             <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
          </div>

@@ -127,6 +127,35 @@ html,body{height: 100%;}
 .section-header p{color: #444a57;text-transform: capitalize;margin-bottom:10px;}
 .section-header h2 span,.section-header p span{text-transform: lowercase;}
 
+.alert-message{
+    position: sticky;
+    top:0;
+    max-width: 1200px;
+    margin:0 auto;
+    background-color:rgb(255, 255, 255);
+    padding:2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap:1.5rem;
+    z-index: 1100;
+ }
+ 
+ .alert-message span{
+    font-size: 2rem;
+    color:rgb(0, 0, 0);
+ }
+ 
+ .alert-message i{
+    cursor: pointer;
+    color:#e74c3c;
+    font-size: 2.5rem;
+ }
+ 
+ .alert-message i:hover{
+    color:rgb(0, 0, 0);
+ }
+
 /* section-header */
 
 /*=============Style css=========*/

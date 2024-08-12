@@ -9,7 +9,7 @@ if(isset($_SESSION['user_id'])){
 }else{
    $user_id = '';
 };
-
+include 'components/cart-btn.php';
 ?>
 <!doctype html>
 <html class="no-js" lang="en">
