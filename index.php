@@ -158,7 +158,7 @@ include 'components/cart-btn.php';
 												Is this CPU Good for Gaming? Yes, this is a high end chip that would be great for gaming.
 											</p>
 											<button class="welcome-btn new-cars-btn" onclick="window.location.href='#'">
-												buy now
+												View more
 											</button>
 										</div><!--/.new-cars-txt-->	
 									</div><!--/.col-->
@@ -182,7 +182,7 @@ include 'components/cart-btn.php';
 												Midrange to high-end gamers looking for a GPU that can handle the most demanding games at 1440p.
 											</p>
 											<button class="welcome-btn new-cars-btn" onclick="window.location.href='#'">
-												buy now
+												View more
 											</button>
 										</div><!--/.new-cars-txt-->	
 									</div><!--/.col-->
@@ -207,7 +207,7 @@ include 'components/cart-btn.php';
 												Offering room for the latest NVIDIA 40 Series and AMD 7000 Series cards.
 											</p>
 											<button class="welcome-btn new-cars-btn" onclick="window.location.href='#'">
-												buy now
+												view more
 											</button>
 										</div><!--/.new-cars-txt-->	
 									</div><!--/.col-->

@@ -53,17 +53,19 @@
     padding: 0 2rem;
 }
 .cart-item-qty input{
-    border: none;
-}
-.cart-item-qty input{
     width: 40px;
-    text-align: center;
+    text-align: right;
+    border: 1px solid #aaa;
+    padding: 3px;
+    background-color: #eee;
+    border-radius: 2px;
 }
 .cart-item-total{
     text-align: left;
     width: 100px;
     padding: 0 2rem;
 }
+.cart-item-qty button,
 .cart-item-icon{
     padding: 0 2rem;
     transition: .3s ease all;
@@ -78,6 +80,7 @@
     padding-top: 1rem;
     transition: .3s ease all;
 }
+.cart-item-qty button:hover,
 .cart-item-icon:hover,
 .cart-footer a:hover{
     color: #4e4ffa;
@@ -123,7 +126,14 @@
     font-size: 14px;
 }
 .summary-voucher input{
-    text-transform: uppercase;
-    padding: .5rem;
     font-size: 14px;
+    text-transform: uppercase;
+    border: 1px solid #aaa;
+    border-radius: 2px;
+    padding: .5rem;
+    width: 100%;
+}
+.summary-footer{
+    display: flex;
+    justify-content: space-between;
 }

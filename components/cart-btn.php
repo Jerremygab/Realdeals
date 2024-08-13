@@ -4,7 +4,8 @@
 if(isset($_POST['add_to_cart'])){
 
     if($user_id == ''){
-       header('location:user_login.php');
+      //  header('location:login.php');
+      $message[] = 'Please login first';
     }else{
  
        $pid = $_POST['pid'];
@@ -43,6 +44,3 @@ if(isset($_POST['add_to_cart'])){
  }
 
 ?>
-
-.wp-container-core-columns-is-layout-3:not(.is-not-stacked-on-mobile)>.wp-container-core-columns-is-layout-3
-wp-block-columns is-layout-flex wp-container-core-columns-is-layout-3 wp-block-columns-is-layout-flex
