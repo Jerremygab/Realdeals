@@ -8,6 +8,7 @@ if(isset($_SESSION['user_id'])){
    $user_id = $_SESSION['user_id'];
 }else{
    $user_id = '';
+   header('location:login.php');
 }
 
 if(isset($_POST['delete'])){
@@ -226,7 +227,7 @@ if (isset($_GET['selected'])) {
                                             // $grand_total += $sub_total;
                                     ?>
                             <form action="" method="post">
-                                <input type="text" name="cart_id" value="<?= $fetch_cart['cart_id']; ?>">
+                                <input type="hidden" name="cart_id" value="<?= $fetch_cart['cart_id']; ?>">
                                 <input type="hidden" name="grand_total_input" id="grand_total_input" value="<?= $grand_total; ?>">
                                 <input type="hidden" name="ship_total_input" id="ship_total_input" value="<?= $ship_total; ?>">
                                 <input type="hidden" name="final_total_input" id="final_total_input" value="<?= $grand_total + $ship_total; ?>">

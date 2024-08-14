@@ -39,7 +39,7 @@
 						<li class="scrolls"><a href="#">orders</a></li>
 						<li class="scrolls"><a href="#">contact</a></li>
 						<li class="scrolls"><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></li>
-						<li class="scrolls"><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
+						<li class="scrolls"><a href="cart.php"><i class="fa-solid fa-cart-shopping"></i></a></li>
 						<li class="scrolls"><a><i class="fa-solid fa-user" data-toggle="modal" data-target="#myModal"></i></a></li>
 					</ul><!--/.nav -->
 				</div><!-- /.navbar-collapse -->

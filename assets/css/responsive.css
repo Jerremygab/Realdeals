@@ -89,7 +89,7 @@
 }/*max-width:350px*/
 
 @media screen and  (max-width: 320px){
-	
+	*{display: none;}
 }/*max-width:320px*/
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {

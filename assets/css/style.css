@@ -728,10 +728,12 @@ td:nth-child(odd) {
     /* border: 1px solid #4e4ffa; */
     box-shadow: 0 12px 30px 0px rgba(0, 1, 193, .2);
     width: fit-content;
+    width: 1300px;
     padding: 4rem;
 }
 .cart-content{
     display: flex;
+    justify-content: center;
 }
 .cart-products{
     display: flex;
