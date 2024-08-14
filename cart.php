@@ -24,9 +24,23 @@ if(isset($_POST['update_qty'])){
     $update_qty->execute([$qty, $cart_id]);
     $message[] = 'Quantity Updated';
 }
+if (isset($_POST['submit'])) {
+    $cart_id = $_POST['cart_id'];
+    $ship_total = floatval($_POST['ship_total_input']);
+    $final_total = floatval($_POST['final_total_input']);
+ 
+    // Insert the totals into the database
+    $insert_order = $conn->prepare("UPDATE `cart` SET shipping_fee = ?, to_pay = ? WHERE id = ?");
+    $insert_order->execute([$ship_total, $final_total, $cart_id]);
+ 
+    // Redirect or display a success message
+    // header('location:order_success.php');
+    $message[] = 'checkout';
+    exit;
+ }
 
 // Initialize totals
-$ship_total = 0;
+$ship_total = 1;
 $grand_total = 0;
 
 // Calculate grand total
@@ -44,17 +58,25 @@ if($select_cart->rowCount() > 0){
 if (isset($_GET['selected'])) {
     $selected_value = intval($_GET['selected']);
 
+    // Determine ship_total based on selected option
     if ($selected_value == 1) {
-        $ship_total += 5;
+        $ship_total = 5;
     } elseif ($selected_value == 2) {
-        $ship_total += 3;
+        $ship_total = 3;
     } elseif ($selected_value == 3) {
-        $ship_total += 1;
+        $ship_total = 1;
+    } else {
+        $ship_total = 0;
     }
 
-    // Calculate the new total and return it
-    $new_total = $grand_total + $ship_total;
-    echo $new_total;
+    // Calculate final total
+    $final_total = $grand_total + $ship_total;
+
+    // Return JSON response
+    echo json_encode([
+        'ship_total' => $ship_total,
+        'final_total' => $final_total
+    ]);
     exit;
 }
 ?>
@@ -79,8 +101,16 @@ if (isset($_GET['selected'])) {
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 console.log("Response: " + xhr.responseText);
-                // Update the total element with the server response
-                document.getElementById("total").innerText = xhr.responseText;
+                // Parse the JSON response
+                const response = JSON.parse(xhr.responseText);
+                
+                // Update the totals on the page
+                document.getElementById("ship_total").innerText = response.ship_total;
+                document.getElementById("final_total_display").innerText = response.final_total;
+
+                // Update hidden inputs
+                document.getElementById("ship_total_input").value = response.ship_total;
+                document.getElementById("final_total_input").value = response.final_total;
             }
         };
 
@@ -89,6 +119,7 @@ if (isset($_GET['selected'])) {
         xhr.send();
     }
     </script>
+
 </head>
 
 <body>
@@ -99,14 +130,18 @@ if (isset($_GET['selected'])) {
         <!-- top-area End -->
     </section><!--/.welcome-hero-->
     <!--welcome-hero end -->
-
+        <?php
+            $count_cart_items = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
+            $count_cart_items->execute([$user_id]);
+            $total_cart_counts = $count_cart_items->rowCount();
+        ?>
     <section class="cart-section" id="cart-section">
         <div class="cart-container">
             <div class="cart-content">
                 <div class="cart-products">
                     <div class="cart-header">
                         <h2>Shopping Cart</h2>
-                        <p>3 items</p>
+                        <p><?= $total_cart_counts; ?> items</p>
                     </div>
                     <?php
                     $select_cart = $conn->prepare("SELECT cart.id AS cart_id, products2.id AS product_id, cart.*, products2.* FROM cart LEFT JOIN products2 ON products2.id = cart.pid WHERE cart.user_id = ?");
@@ -134,7 +169,7 @@ if (isset($_GET['selected'])) {
                                 <p>$<?= $sub_total; ?></p>
                             </div>
                             <div class="cart-item-icon">
-                                <button type="submit" class="fas fa-trash" name="delete"></button>
+                                <button type="submit" class="fas fa-trash" name="delete" onclick="return confirm('delete this from cart?');"></button>
                             </div>
                         </div>
                     </form>
@@ -154,35 +189,61 @@ if (isset($_GET['selected'])) {
                             <h2>Summary</h2>
                         </div>
                         <div class="summary-item">
-                            <p>3 items</p>
+                            <p><?= $total_cart_counts; ?> items</p>
                             <p>$<?= $grand_total; ?></p>
                         </div>
                         <div class="summary-shipment">
                             <p>Shipment</p>
-                            <select id="option_select" name="option_select" onchange="updateShipTotal(this.value)">
-                                <option value="0">Select an option</option>
+                            <select id="option_select" name="option_select" onchange="updateShipTotal(this.value)" >
                                 <option value="1">Same day delivery (+$5)</option>
                                 <option value="2">Express Delivery (+$3)</option>
-                                <option value="3">Standard Delivery (+$1)</option>
+                                <option value="3" selected>Standard Delivery (+$1)</option>
                             </select>
                         </div>
                         <div class="summary-voucher">
                             <p>Voucher Code</p>
                             <input type="text" placeholder="eg. RLDLS3" maxlength="6">
                         </div>
+                        <div class="summary-footer" style="display: none;">
+                            <p>Grand Total:</p>
+                            <p>$<span id="grand_total"><?= $grand_total; ?></span></p>
+                        </div>
+                        <div class="summary-footer" style="display: none;">
+                            <p>Shipping Cost:</p>
+                            <p>$<span id="ship_total"><?= $ship_total; ?></span></p>
+                        </div>
                         <div class="summary-footer">
-                            <p>Total Price</p>
-                            <p id="total">$<?= $grand_total; ?></p>
+                            <p>Final Total:</p>
+                            <p>$<span id="final_total_display"><?= $grand_total + $ship_total; ?></span></p>
                         </div>
                         <div class="summary-btn">
-                            <input type="submit" name="submit" value="Checkout">
+                                    <?php
+                                    $select_cart = $conn->prepare("SELECT cart.id AS cart_id, products2.id AS product_id, cart.*, products2.* FROM cart LEFT JOIN products2 ON products2.id = cart.pid WHERE cart.user_id = ?");
+                                    $select_cart->execute([$user_id]);
+                                    if($select_cart->rowCount() > 0){
+                                        while($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)){
+                                            // $sub_total = $fetch_cart['price'] * $fetch_cart['quantity'];
+                                            // $grand_total += $sub_total;
+                                    ?>
+                            <form action="" method="post">
+                                <input type="text" name="cart_id" value="<?= $fetch_cart['cart_id']; ?>">
+                                <input type="hidden" name="grand_total_input" id="grand_total_input" value="<?= $grand_total; ?>">
+                                <input type="hidden" name="ship_total_input" id="ship_total_input" value="<?= $ship_total; ?>">
+                                <input type="hidden" name="final_total_input" id="final_total_input" value="<?= $grand_total + $ship_total; ?>">
+                                <input type="submit" name="submit" value="Checkout">
+                            </form>
+                            <?php
+                                }}
+                            ?>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <?php
 
+    ?>
     <!--blog start -->
     <section id="blog" class="blog"></section><!--/.blog-->
     <!--blog end -->

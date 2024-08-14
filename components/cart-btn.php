@@ -25,14 +25,6 @@ if(isset($_POST['add_to_cart'])){
           $message[] = 'already added to cart!';
        }else{
  
-          $check_wishlist_numbers = $conn->prepare("SELECT * FROM `wishlist` WHERE name = ? AND user_id = ?");
-          $check_wishlist_numbers->execute([$name, $user_id]);
- 
-          if($check_wishlist_numbers->rowCount() > 0){
-             $delete_wishlist = $conn->prepare("DELETE FROM `wishlist` WHERE name = ? AND user_id = ?");
-             $delete_wishlist->execute([$name, $user_id]);
-          }
- 
           $insert_cart = $conn->prepare("INSERT INTO `cart`(user_id, pid, name, price, quantity, image) VALUES(?,?,?,?,?,?)");
           $insert_cart->execute([$user_id, $pid, $name, $price, $qty, $image]);
           $message[] = 'added to cart!';
