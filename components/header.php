@@ -50,6 +50,10 @@
 						<!-- Modal content-->
 						<div class="modal-content" style="width: 350px;">
 								<?php          
+									$count_cart_items = $conn->prepare("SELECT * FROM `cart` LEFT JOIN users ON cart.user_id = users.id WHERE user_id = ?");
+									$count_cart_items->execute([$user_id]);
+									$total_cart_counts = $count_cart_items->rowCount();
+
 									$select_profile = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
 									$select_profile->execute([$user_id]);
 									if($select_profile->rowCount() > 0){
@@ -57,13 +61,13 @@
 								?>
 							<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4 class="modal-title"><?= $fetch_profile["name"]; ?></h4>
+							<h4 class="modal-title"><?= $fetch_profile["user_name"]; ?></h4>
 							</div>
 							<div class="modal-body">
 								<table class="single-service-table">
 									<tr>
 										<td>In Cart:</td>
-										<td>2</td>
+										<td><?= $total_cart_counts; ?></td>
 									</tr>
 									<tr>
 										<td>My Purchase:</td>

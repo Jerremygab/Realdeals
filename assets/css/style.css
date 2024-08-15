@@ -852,7 +852,7 @@ td:nth-child(odd) {
     border: 1px solid #aaa;
     border-radius: 2px;
     padding: .5rem;
-    width: 100%;
+    width: fit-content;
 }
 .summary-footer{
     display: flex;
