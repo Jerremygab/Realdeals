@@ -37,7 +37,7 @@
 						<li class=" scrolls actives"><a href="index.php">home</a></li>
 						<li class="scrolls"><a href="shop.php">all products</a></li>
 						<li class="scrolls"><a href="#">orders</a></li>
-						<li class="scrolls"><a href="#">contact</a></li>
+						<li class="scrolls"><a href="#contact">contact</a></li>
 						<li class="scrolls"><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></li>
 						<li class="scrolls"><a href="cart.php"><i class="fa-solid fa-cart-shopping"></i></a></li>
 						<li class="scrolls"><a><i class="fa-solid fa-user" data-toggle="modal" data-target="#myModal"></i></a></li>
@@ -50,7 +50,7 @@
 						<!-- Modal content-->
 						<div class="modal-content" style="width: 350px;">
 								<?php          
-									$count_cart_items = $conn->prepare("SELECT * FROM `cart` LEFT JOIN users ON cart.user_id = users.id WHERE user_id = ?");
+									$count_cart_items = $conn->prepare("SELECT * FROM `cart` LEFT JOIN users ON cart.user_id = users.id WHERE user_id = ? AND cart.status = ''");
 									$count_cart_items->execute([$user_id]);
 									$total_cart_counts = $count_cart_items->rowCount();
 

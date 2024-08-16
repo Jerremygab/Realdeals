@@ -33,7 +33,120 @@ include 'components/cart-btn.php';
 		<section id="home" class="welcome-hero">
 
 			<!-- top-area Start -->
-			<?php include 'components/header.php'; ?>
+			<?php
+   if(isset($message)){
+      foreach($message as $message){
+         echo '
+         <div class="alert-message">
+            <p>'.$message.'</p>
+            <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
+         </div>
+         ';
+      }
+   }
+?>
+
+
+
+
+<div class="top-area">
+	<div class="header-area">
+		<!-- Start Navigation -->
+		<nav class="navbar navbar-default bootsnav  navbar-sticky navbar-scrollspy"  data-minus-value-desktop="70" data-minus-value-mobile="55" data-speed="1000">
+
+			<div class="container">
+
+				<!-- Start Header Navigation -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+						<i class="fa fa-bars"></i>
+					</button>
+					<a class="navbar-brand" href="index.html"><img src="assets/logo/realdeals-removebg-preview.png" alt=""></a>
+
+				</div><!--/.navbar-header-->
+				<!-- End Header Navigation -->
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
+					<ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+						<li class=" scrolls actives"><a href="index.php" style="color: #f5f7fa;">home</a></li>
+						<li class="scrolls"><a href="shop.php" style="color: #f5f7fa;">all products</a></li>
+						<li class="scrolls"><a href="#" style="color: #f5f7fa;">orders</a></li>
+						<li class="scrolls"><a href="#contact" style="color: #f5f7fa;">contact</a></li>
+						<li class="scrolls"><a href="#" style="color: #f5f7fa;"><i class="fa-solid fa-magnifying-glass"></i></a></li>
+						<li class="scrolls"><a href="cart.php" style="color: #f5f7fa;"><i class="fa-solid fa-cart-shopping"></i></a></li>
+						<li class="scrolls"><a><i class="fa-solid fa-user" data-toggle="modal" data-target="#myModal" style="color: #f5f7fa;"></i></a></li>
+					</ul><!--/.nav -->
+				</div><!-- /.navbar-collapse -->
+					<!-- Modal -->
+					<div class="modal fade" id="myModal" role="dialog" style="z-index: 9999999;">
+						<div class="modal-dialog" style="display: flex; justify-content: center;">
+						
+						<!-- Modal content-->
+						<div class="modal-content" style="width: 350px;">
+								<?php          
+									$count_cart_items = $conn->prepare("SELECT * FROM `cart` LEFT JOIN users ON cart.user_id = users.id WHERE user_id = ? AND cart.status = ''");
+									$count_cart_items->execute([$user_id]);
+									$total_cart_counts = $count_cart_items->rowCount();
+
+									$select_profile = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
+									$select_profile->execute([$user_id]);
+									if($select_profile->rowCount() > 0){
+									$fetch_profile = $select_profile->fetch(PDO::FETCH_ASSOC);
+								?>
+							<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title"><?= $fetch_profile["user_name"]; ?></h4>
+							</div>
+							<div class="modal-body">
+								<table class="single-service-table">
+									<tr>
+										<td>In Cart:</td>
+										<td><?= $total_cart_counts; ?></td>
+									</tr>
+									<tr>
+										<td>My Purchase:</td>
+										<td>2</td>
+									</tr>
+									<tr>
+										<td>Total Spent</td>
+										<td>$209</td>
+									</tr>
+								</table>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="modal-btn" data-dismiss="modal">Update Profile</button>
+								<a href="components/logout.php" class="modal-btn" onclick="return confirm('logout from the website?');">Logout</a> 
+								<button type="button" class="modal-btn" data-dismiss="modal">Close</button>
+							</div>
+								<?php
+									}else{
+								?>
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+								</div>
+									<div class="modal-body">
+									<p>Please login or register first.</p>
+									
+								</div>
+								<div class="modal-footer">
+									<a href="login.php" class="modal-btn">Login</a>
+									<button type="button" class="modal-btn" data-dismiss="modal">Close</button>
+								</div>
+								<?php
+									}
+								?> 
+						</div>
+						
+						</div>
+					</div>
+			</div><!--/.container-->
+		</nav><!--/nav-->
+		<!-- End Navigation -->
+	</div><!--/.header-area-->
+	<div class="clearfix"></div>
+
+</div><!-- /.top-area-->
 			<!-- top-area End -->
 
 			<div class="container">

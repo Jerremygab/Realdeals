@@ -26,6 +26,7 @@ if(isset($_POST['update_qty'])){
     $message[] = 'Quantity Updated';
 }
 if (isset($_POST['submit'])) {
+    $status = 'pending';
     $user_id = $_POST['user_id'];
     $user_name = $_POST['user_name'];
     $no_of_items = $_POST['no_of_items'];
@@ -33,8 +34,11 @@ if (isset($_POST['submit'])) {
     $grand_total = floatval($_POST['grand_total_input']);
     $final_total = floatval($_POST['final_total_input']);
 
-    $insert_order = $conn->prepare("INSERT INTO `payment`(id, user_name, no_of_items, shipping_fee, sub_total, total_price) VALUES(?,?,?,?,?,?)");
+    $insert_order = $conn->prepare("INSERT INTO `payment`(user_id, user_name, no_of_items, shipping_fee, sub_total, total_price) VALUES(?,?,?,?,?,?)");
     $insert_order->execute([$user_id, $user_name, $no_of_items, $ship_total, $grand_total, $final_total]);
+
+    $update_status = $conn->prepare("UPDATE `cart` SET status = ? WHERE user_id = ? AND cart.status = ''");
+    $update_status->execute([$status, $user_id]);
     // Redirect or display a success message
     header('location:index.php');
     exit;
@@ -45,7 +49,7 @@ $ship_total = 1;
 $grand_total = 0;
 
 // Calculate grand total
-$select_cart = $conn->prepare("SELECT cart.id AS cart_id, products2.id AS product_id, cart.*, products2.* FROM cart LEFT JOIN products2 ON products2.id = cart.product_id WHERE cart.user_id = ?");
+$select_cart = $conn->prepare("SELECT cart.id AS cart_id, products2.id AS product_id, cart.*, products2.* FROM cart LEFT JOIN products2 ON products2.id = cart.product_id WHERE cart.user_id = ? AND cart.status = ''");
 $select_cart->execute([$user_id]);
 
 if($select_cart->rowCount() > 0){
@@ -132,7 +136,7 @@ if (isset($_GET['selected'])) {
     </section><!--/.welcome-hero-->
     <!--welcome-hero end -->
         <?php
-            $count_cart_items = $conn->prepare("SELECT * FROM `cart` LEFT JOIN users ON cart.user_id = users.id WHERE user_id = ?");
+            $count_cart_items = $conn->prepare("SELECT * FROM `cart` LEFT JOIN users ON cart.user_id = users.id WHERE user_id = ? AND cart.status = ''");
             $count_cart_items->execute([$user_id]);
             $total_cart_counts = $count_cart_items->rowCount();
         ?>
@@ -145,7 +149,7 @@ if (isset($_GET['selected'])) {
                         <p><?= $total_cart_counts; ?> items</p>
                     </div>
                     <?php
-                    $select_cart = $conn->prepare("SELECT cart.id AS cart_id, products2.id AS product_id, cart.*, products2.*, users.* FROM cart LEFT JOIN products2 ON products2.id = cart.product_id LEFT JOIN users ON cart.user_id = users.id WHERE cart.user_id = ?");
+                    $select_cart = $conn->prepare("SELECT cart.id AS cart_id, products2.id AS product_id, cart.*, products2.*, users.* FROM cart LEFT JOIN products2 ON products2.id = cart.product_id LEFT JOIN users ON cart.user_id = users.id WHERE cart.user_id = ? AND cart.status = ''");
                     $select_cart->execute([$user_id]);
                     if($select_cart->rowCount() > 0){
                         while($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)){
@@ -219,11 +223,11 @@ if (isset($_GET['selected'])) {
                         </div>
                         <div class="summary-btn">
                             <?php          
-									$select_profile = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
-									$select_profile->execute([$user_id]);
-									if($select_profile->rowCount() > 0){
-									$fetch_profile = $select_profile->fetch(PDO::FETCH_ASSOC);
-								?>
+                                $select_profile = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
+                                $select_profile->execute([$user_id]);
+                                if($select_profile->rowCount() > 0){
+                                $fetch_profile = $select_profile->fetch(PDO::FETCH_ASSOC);
+                            ?>
                             <form action="" method="post">
                                 <input type="hidden" name="user_id" value="<?= $fetch_profile['id']; ?>">
                                 <input type="hidden" name="user_name" value="<?= $fetch_profile['user_name']; ?>">
