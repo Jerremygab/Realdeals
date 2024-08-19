@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+            <!--font-family-->
+		<link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+		<link href="https://fonts.googleapis.com/css?family=Rufina:400,700" rel="stylesheet">
+        
+        <!-- title of site -->
+        <title>Real Deals</title>
+
+        <!-- For favicon png -->
+		<link rel="shortcut icon" type="image/icon" href="assets/logo/realdeals.jpg"/>
+       
+        <!--font-awesome.min.css-->
+        <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+        <!--linear icon css-->
+		<link rel="stylesheet" href="assets/css/linearicons.css">
+
+        <!--flaticon.css-->
+		<link rel="stylesheet" href="assets/css/flaticon.css">
+
+		<!--animate.css-->
+        <link rel="stylesheet" href="assets/css/animate.css">
+
+        <!--owl.carousel.css-->
+        <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+		<link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
+		
+        <!--bootstrap.min.css-->
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+		
+		<!-- bootsnav -->
+		<link rel="stylesheet" href="assets/css/bootsnav.css" >	
+        
+        <!--style.css-->
+        <link rel="stylesheet" href="assets/css/style.css">
+        
+        <!--responsive.css-->
+        <link rel="stylesheet" href="assets/css/responsive.css">
+		<!-- Modal.css -->
+		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
+		<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		
+        <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+</head>
+<body>
+    <section class="checkout" id="checkout">
+        <div class="checkout-container">
+            <h2>Checkout</h2>
+            <form action="" method="post">
+            <div class="checkout-content">
+                    <div class="checkout-form">
+                        <table>
+                            <tr class="checkout-form-input">
+                                <td><label for="fname">First Name</label></td>
+                                <td><input type="text" name="fname" required></td>
+                            </tr>
+                            <tr class="checkout-form-input">
+                                <td><label for="lname">Last Name</label></td>
+                                <td><input type="text" name="lname" required></td>
+                            </tr>
+                            <tr class="checkout-form-input">
+                                <td><label for="email">Email Address</label></td>
+                                <td><input type="email" name="email" required></td>
+                            </tr>
+                            <tr class="checkout-form-input">
+                                <td><label for="number">Contact Number</label></td>
+                                <td><input type="tel" name="number" pattern="[0-9]{11}" placeholder="09123456789" required></td>
+                            </tr>
+                            <tr class="checkout-form-input">
+                                <td><label for="company">Company Name (optional)</label></td>
+                                <td><input type="text" name="company"></td>
+                            </tr>
+                            <tr class="checkout-form-input">
+                                <td><label for="country">Country</label></td>
+                                <td><input type="text" name="country" required></td>
+                            </tr>
+                            <tr class="checkout-form-input">
+                                <td><label for="street">Street Address</label></td>
+                                <td><input type="text" name="street" placeholder="House number and street name" required></td>
+                            </tr>
+                            <tr class="checkout-form-input">
+                                <td><label for="street2">Street Address 2</label></td>
+                                <td><input type="text" name="street2" placeholder="Appartment, Suite, Unit no., etc. (optional)"></td>
+                            </tr>
+                            <tr class="checkout-form-input">
+                                <td><label for="city">Town / City</label></td>
+                                <td><input type="text" name="city" required></td>
+                            </tr>
+                            <tr class="checkout-form-input">
+                                <td><label for="state">State / Country</label></td>
+                                <td><input type="text" name="state" required></td>
+                            </tr>
+                            <tr class="checkout-form-input">
+                                <td><label for="zip">Postcode / ZIP</label></td>
+                                <td><input type="text" name="zip" required></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="checkout-payment">
+                        <h3>Your order</h3>
+                        <div class="checkout-payment-list">
+                            <p>Logitech G Pro X</p>
+                            <p>$123</p>
+                        </div>
+                        <div class="checkout-payment-subtotal">
+                            <p>Subtotal</p>
+                            <p>$123</p>
+                        </div>
+                        <div class="checkout-payment-shipping">
+                            <p>Shipping Fee</p>
+                            <p>$123</p>
+                        </div>
+                        <div class="checkout-payment-total">
+                            <p>Total Payment</p>
+                            <p>$123</p>
+                        </div>
+                        <div class="checkout-payment-mop">
+                            <input type="radio" name="mop" value="gcash" checked> GCash
+                            <input type="radio" name="mop" value="cod"> Cash on Delivery
+                            <input type="radio" name="mop" value="card"> Debit / Credit Card
+                        </div>
+                        <div class="checkout-payment-btn">
+                            <input type="button" value="Place order" name="submit">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

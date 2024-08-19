@@ -49,7 +49,7 @@ $ship_total = 1;
 $grand_total = 0;
 
 // Calculate grand total
-$select_cart = $conn->prepare("SELECT cart.id AS cart_id, products2.id AS product_id, cart.*, products2.* FROM cart LEFT JOIN products2 ON products2.id = cart.product_id WHERE cart.user_id = ? AND cart.status = ''");
+$select_cart = $conn->prepare("SELECT cart.id AS cart_id, products2.id AS product_id, cart.*, products2.* FROM cart LEFT JOIN products2 ON products2.id = cart.product_id WHERE cart.user_id = ? AND cart.status <> 'completed'");
 $select_cart->execute([$user_id]);
 
 if($select_cart->rowCount() > 0){
@@ -136,7 +136,7 @@ if (isset($_GET['selected'])) {
     </section><!--/.welcome-hero-->
     <!--welcome-hero end -->
         <?php
-            $count_cart_items = $conn->prepare("SELECT * FROM `cart` LEFT JOIN users ON cart.user_id = users.id WHERE user_id = ? AND cart.status = ''");
+            $count_cart_items = $conn->prepare("SELECT * FROM `cart` LEFT JOIN users ON cart.user_id = users.id WHERE user_id = ? AND cart.status <> 'completed'");
             $count_cart_items->execute([$user_id]);
             $total_cart_counts = $count_cart_items->rowCount();
         ?>
@@ -149,7 +149,7 @@ if (isset($_GET['selected'])) {
                         <p><?= $total_cart_counts; ?> items</p>
                     </div>
                     <?php
-                    $select_cart = $conn->prepare("SELECT cart.id AS cart_id, products2.id AS product_id, cart.*, products2.*, users.* FROM cart LEFT JOIN products2 ON products2.id = cart.product_id LEFT JOIN users ON cart.user_id = users.id WHERE cart.user_id = ? AND cart.status = ''");
+                    $select_cart = $conn->prepare("SELECT cart.id AS cart_id, products2.id AS product_id, cart.*, products2.*, users.* FROM cart LEFT JOIN products2 ON products2.id = cart.product_id LEFT JOIN users ON cart.user_id = users.id WHERE cart.user_id = ? AND cart.status <> 'completed'");
                     $select_cart->execute([$user_id]);
                     if($select_cart->rowCount() > 0){
                         while($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)){

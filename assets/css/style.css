@@ -373,7 +373,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #4e4ffa;}
     text-align: center;
     text-decoration: underline;
 }
-.form-input input[type=text],input[type=password],input[type=email]{
+.form-input input[type=text], .form-input input[type=password], .form-input input[type=email]{
     width: 100%;
     border: none;
     border-bottom: 1px solid #999;
@@ -717,7 +717,7 @@ td:nth-child(odd) {
     font-weight: 600;
     padding-right: 2rem;
   }
-  .cart-section{
+.cart-section{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -725,7 +725,6 @@ td:nth-child(odd) {
     height: 100vh;
 }
 .cart-container{
-    /* border: 1px solid #4e4ffa; */
     box-shadow: 0 12px 30px 0px rgba(0, 1, 193, .2);
     width: fit-content;
     width: 1300px;
