@@ -66,76 +66,82 @@
                     <div class="checkout-form">
                         <table>
                             <tr class="checkout-form-input">
-                                <td><label for="fname">First Name</label></td>
+                                <td><p>First Name</p></td>
                                 <td><input type="text" name="fname" required></td>
                             </tr>
                             <tr class="checkout-form-input">
-                                <td><label for="lname">Last Name</label></td>
+                                <td><p>Last Name</p></td>
                                 <td><input type="text" name="lname" required></td>
                             </tr>
                             <tr class="checkout-form-input">
-                                <td><label for="email">Email Address</label></td>
+                                <td><p>Email Address</p></td>
                                 <td><input type="email" name="email" required></td>
                             </tr>
                             <tr class="checkout-form-input">
-                                <td><label for="number">Contact Number</label></td>
-                                <td><input type="tel" name="number" pattern="[0-9]{11}" placeholder="09123456789" required></td>
+                                <td><p>Contact Number</p></td>
+                                <td><input type="number" name="number" maxlength="11" placeholder="09123456789" required></td>
                             </tr>
                             <tr class="checkout-form-input">
-                                <td><label for="company">Company Name (optional)</label></td>
+                                <td><p>Company Name (optional)</p></td>
                                 <td><input type="text" name="company"></td>
                             </tr>
                             <tr class="checkout-form-input">
-                                <td><label for="country">Country</label></td>
+                                <td><p>Country</p></td>
                                 <td><input type="text" name="country" required></td>
                             </tr>
                             <tr class="checkout-form-input">
-                                <td><label for="street">Street Address</label></td>
+                                <td><p>Street Address</p></td>
                                 <td><input type="text" name="street" placeholder="House number and street name" required></td>
                             </tr>
                             <tr class="checkout-form-input">
-                                <td><label for="street2">Street Address 2</label></td>
-                                <td><input type="text" name="street2" placeholder="Appartment, Suite, Unit no., etc. (optional)"></td>
+                                <td><p>Street Address 2 (optional)</p></td>
+                                <td><input type="text" name="street2" placeholder="Appartment, Suite, Unit no., etc."></td>
                             </tr>
                             <tr class="checkout-form-input">
-                                <td><label for="city">Town / City</label></td>
+                                <td><p>Town / City</p></td>
                                 <td><input type="text" name="city" required></td>
                             </tr>
                             <tr class="checkout-form-input">
-                                <td><label for="state">State / Country</label></td>
+                                <td><p>State / Country</p></td>
                                 <td><input type="text" name="state" required></td>
                             </tr>
                             <tr class="checkout-form-input">
-                                <td><label for="zip">Postcode / ZIP</label></td>
-                                <td><input type="text" name="zip" required></td>
+                                <td><p>Postcode / ZIP</p></td>
+                                <td><input type="number" name="zip" required></td>
                             </tr>
                         </table>
                     </div>
                     <div class="checkout-payment">
-                        <h3>Your order</h3>
                         <div class="checkout-payment-list">
-                            <p>Logitech G Pro X</p>
+                            <h3>Your order</h3>
+                            <p>4 Items</p>
+                        </div>
+                        <div class="checkout-payment-list">
+                            <p style="max-width:250px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;">Logitech G Pro X Logitech G Pro X Logitech G Pro X</p>
                             <p>$123</p>
                         </div>
-                        <div class="checkout-payment-subtotal">
+                        <div class="checkout-payment-list">
                             <p>Subtotal</p>
                             <p>$123</p>
                         </div>
-                        <div class="checkout-payment-shipping">
+                        <div class="checkout-payment-list">
                             <p>Shipping Fee</p>
                             <p>$123</p>
                         </div>
-                        <div class="checkout-payment-total">
+                        <div class="checkout-payment-list">
                             <p>Total Payment</p>
                             <p>$123</p>
                         </div>
                         <div class="checkout-payment-mop">
-                            <input type="radio" name="mop" value="gcash" checked> GCash
-                            <input type="radio" name="mop" value="cod"> Cash on Delivery
-                            <input type="radio" name="mop" value="card"> Debit / Credit Card
+                            <p>Mode of Payment: </p>
+                            <p><input type="radio" name="mop" value="gcash" checked> GCash</p>
+                            <p><input type="radio" name="mop" value="cod"> Cash on Delivery</p>
+                            <p><input type="radio" name="mop" value="card"> Debit / Credit Card</p>
                         </div>
+                        <br>
                         <div class="checkout-payment-btn">
-                            <input type="button" value="Place order" name="submit">
+                            <input type="submit" value="Place order" name="submit">
+                            <a href="shop.php">Back to shop</a>
                         </div>
                     </div>
                 </form>
