@@ -164,13 +164,14 @@ include 'components/cart-btn.php';
 					<div class="col-md-12">
 						<div class="model-search-content">
 							<div class="content-grid">
-								
+								<a href="#">
 									<div class="content-items">
-										<a href="#">
+										
 											<img src="assets/images/welcome-hero/components.jpg" alt="">
-										</a>
+										
 										<h2>PC <br>Compontents</h2>
 									</div>
+								</a>
 								<a href="#">
 									<div class="content-items">
 										<img src="assets/images/welcome-hero/peripherals.jpg" alt="">

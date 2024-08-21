@@ -36,6 +36,8 @@
 	.welcome-btn.model-search-btn {margin: 0;}
 	.single-new-cars-item {max-width: 450px; margin: 0 auto;}
 	.new-cars-txt {margin: 30px 0;}
+	.checkout{height: auto;padding-top: 6rem;}
+	
 }/*max-width:991px*/
 
 @media screen and (max-width:768px){
@@ -73,7 +75,7 @@
 
 @media screen and (max-width: 440px){
 	.welcome-hero-txt h2{font-size: 24px;line-height: 1.5;}
-	
+
 }/*max-width:400px*/
 
 @media screen and (max-width: 399px){

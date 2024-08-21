@@ -54,6 +54,14 @@
 									$count_cart_items->execute([$user_id]);
 									$total_cart_counts = $count_cart_items->rowCount();
 
+									$count_completed_items = $conn->prepare("SELECT * FROM `cart` LEFT JOIN users ON cart.user_id = users.id WHERE user_id = ? AND cart.status <> 'completed'");
+									$count_completed_items->execute([$user_id]);
+									$total_completed_counts = $count_cart_items->rowCount();
+
+									// $count_total_spent = $conn->prepare("SELECT * FROM `cart` LEFT JOIN users ON cart.user_id = users.id WHERE user_id = ? AND cart.status <> 'completed'");
+									// $count_total_spent->execute([$user_id]);
+									// $total_total_spent = $count_cart_items->rowCount();
+
 									$select_profile = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
 									$select_profile->execute([$user_id]);
 									if($select_profile->rowCount() > 0){
@@ -71,7 +79,7 @@
 									</tr>
 									<tr>
 										<td>My Purchase:</td>
-										<td>2</td>
+										<td><?= $total_completed_counts; ?></td>
 									</tr>
 									<tr>
 										<td>Total Spent</td>
