@@ -10,30 +10,33 @@ if(isset($_SESSION['user_id'])){
    $user_id = '';
 };
 
-if(isset($_POST['submit'])){
-    $status = 'complete';
+if(isset($_POST['place_order'])){
+    $status = 'completed';
     $name = $_POST['fname'];
     $name = filter_var($name, FILTER_SANITIZE_STRING);
     $number = $_POST['number'];
     $number = filter_var($number, FILTER_SANITIZE_STRING);
     $email = $_POST['email'];
     $email = filter_var($email, FILTER_SANITIZE_STRING);
-    $method = $_POST['method'];
-    $method = filter_var($method, FILTER_SANITIZE_STRING);
+    $mop = $_POST['mop'];
+    $mop = filter_var($mop, FILTER_SANITIZE_STRING);
     $address = $_POST['street'] .', '.$_POST['street2'] .', '. $_POST['city'] .', '. $_POST['state'] .', '. $_POST['country'] .' - '. $_POST['zip'];
     $address = filter_var($address, FILTER_SANITIZE_STRING);
-    $total_products = $_POST['total_products'];
+    // $products = $_POST['prod'];
     $total_price = $_POST['total_price'];
+    $total_price = filter_var($total_price, FILTER_SANITIZE_STRING);
  
     $check_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
     $check_cart->execute([$user_id]);
  
     if($check_cart->rowCount() > 0){
  
-       $insert_order = $conn->prepare("INSERT INTO `orders`(user_id, name, number, email, method, address, total_products, total_price) VALUES(?,?,?,?,?,?,?,?)");
-       $insert_order->execute([$user_id, $name, $number, $email, $method, $address, $total_products, $total_price]);
+    //    $insert_order = $conn->prepare("INSERT INTO `orders`(user_id, name, number, email, method, address, total_products, total_price) VALUES(?,?,?,?,?,?,?,?)");
+    //    $insert_order->execute([$user_id, $name, $number, $email, $mop, $address, $products, $total_price]);
+       $insert_order = $conn->prepare("INSERT INTO `orders`(user_id, name, number, email, method, address, total_price) VALUES(?,?,?,?,?,?,?)");
+       $insert_order->execute([$user_id, $name, $number, $email, $mop, $address, $total_price]);
 
-       $update_status = $conn->prepare("UPDATE `cart` SET status = ? WHERE user_id = ? AND cart.status = 'pending'");
+       $update_status = $conn->prepare("UPDATE `cart` SET status = ? WHERE user_id = ? AND cart.status = ''");
        $update_status->execute([$status, $user_id]);
  
        $message[] = 'Order placed successfully!';
@@ -75,6 +78,7 @@ if(isset($_POST['submit'])){
         <div class="checkout-container">
             <h2>Checkout</h2>
             <form action="" method="post">
+           
             <div class="checkout-content">
                     <div class="checkout-form">
                         <table>
@@ -88,7 +92,7 @@ if(isset($_POST['submit'])){
                             </tr>
                             <tr class="checkout-form-input">
                                 <td><p>Contact Number</p></td>
-                                <td><input type="number" name="number" maxlength="11" placeholder="09123456789" required></td>
+                                <td><input type="number" name="number" placeholder="09123456789" required></td>
                             </tr>
                             <tr class="checkout-form-input">
                                 <td><p>Company Name (optional)</p></td>
@@ -121,38 +125,69 @@ if(isset($_POST['submit'])){
                         </table>
                     </div>
                     <div class="checkout-payment">
+                           
                         <div class="checkout-payment-list">
                             <h3>Your order</h3>
-                            <p>4 Items</p>
+                            <p>Items</p>
+                        </div>
+                        <div class="checkout-payment-items">
+                            <?php
+                                $grand_total = 0;
+                                $cart_items[] = '';
+                                $select_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ? AND status = ''");
+                                $select_cart->execute([$user_id]);
+                                if($select_cart->rowCount() > 0){
+                                    while($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)){
+                                        $cart_items[] = $fetch_cart['product_name'].' ('.$fetch_cart['price'].' x '. $fetch_cart['quantity'].') - ';
+                                        $total_products = implode($cart_items);
+                                        $grand_total += ($fetch_cart['price'] * $fetch_cart['quantity']);
+                                ?>
+                        <div class="checkout-payment-list">
+                                <p style="max-width:300px; width:300px;overflow:hidden; white-space:nowrap; text-overflow:ellipsis;"> <?= $fetch_cart['product_name']; ?> <span>(<?= 'x'. $fetch_cart['quantity']; ?>)</span></p>
+                                <p>$<?= $sub_total = ($fetch_cart['price'] * $fetch_cart['quantity']); ?></p>
+
+                        </div>
+                                <?php
+                                // $grand_total += $sub_total;
+                                    }
+                                }else{
+                                    echo '<p class="empty">your cart is empty!</p>';
+                                }
+                            ?>
                         </div>
                         <div class="checkout-payment-list">
-                            <p style="max-width:250px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;">Logitech G Pro X Logitech G Pro X Logitech G Pro X</p>
-                            <p>$123</p>
+
                         </div>
                         <div class="checkout-payment-list">
+                            <input type="hidden" value="" name="subtotal">
                             <p>Subtotal</p>
-                            <p>$123</p>
+                            <p>$<?= $grand_total; ?></p>
                         </div>
                         <div class="checkout-payment-list">
-                            <p>Shipping Fee</p>
-                            <p>$123</p>
+                            <input type="hidden" value="" name="shippingfee">
+                            <p>Voucher Discount</p>
+                            <p>$0</p>
                         </div>
                         <div class="checkout-payment-list">
+                            <input type="hidden" value="" name="total_price">
                             <p>Total Payment</p>
-                            <p>$123</p>
+                            <p>$<?= $grand_total; ?></p>
                         </div>
                         <div class="checkout-payment-mop">
                             <p>Mode of Payment: </p>
-                            <p><input type="radio" name="mop" value="gcash" checked> GCash</p>
-                            <p><input type="radio" name="mop" value="cod"> Cash on Delivery</p>
-                            <p><input type="radio" name="mop" value="card"> Debit / Credit Card</p>
+                            <select name="mop" required>
+                                <option value="Cash on delivery">Cash on Delivery</option>
+                                <option value="Credit card">Credit Card</option>
+                                <option value="Paypal">PayPal</option>
+                            </select>
                         </div>
                         <br>
                         <div class="checkout-payment-btn">
-                            <input type="submit" value="Place order" name="submit">
+                            <input type="submit" value="Place order" name="place_order">
                             <a href="shop.php">Back to shop</a>
                         </div>
                     </div>
+                    
                 </form>
             </div>
         </div>

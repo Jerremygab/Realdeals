@@ -743,6 +743,7 @@ td:nth-child(odd) {
 .cart-item{
     display: flex;
     gap: 2rem;
+    /* justify-content: space-between; */
     align-items: center;
     padding: .5rem 2rem .5rem 0;
     margin-bottom: 1rem;
@@ -761,6 +762,10 @@ td:nth-child(odd) {
 }
 .cart-item-name{
     width: 350px;
+    max-width:350px; 
+    overflow:hidden; 
+    white-space:nowrap; 
+    text-overflow:ellipsis;
 }
 .cart-item-name p{
     font-size: 10px;

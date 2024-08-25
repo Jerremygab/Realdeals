@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        
+        .dashboard {
+            display: flex;
+            height: 100vh;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: #333;
+            color: white;
+            padding: 20px;
+        }
+        
+        .sidebar h2 {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .sidebar ul li {
+            padding: 15px;
+            cursor: pointer;
+            text-align: center;
+            background-color: #444;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .sidebar ul li:hover {
+            background-color: #555;
+        }
+        
+        .sidebar ul li.active {
+            background-color: #666;
+        }
+        
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .stat-box {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-box h4 {
+            margin-bottom: 10px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+        
+        .messages {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .messages li {
+            padding: 10px;
+            background-color: #eee;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            position: relative;
+        }
+        
+        .messages li .timestamp {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            font-size: 0.8em;
+            color: #666;
+        }
+        
+    </style>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="sidebar">
+            <h2>Admin Dashboard</h2>
+            <ul class="tabs">
+                <li class="tab-link active" data-tab="dashboard-tab">Dashboard</li>
+                <li class="tab-link" data-tab="users-tab">Users</li>
+                <li class="tab-link" data-tab="messages-tab">Messages</li>
+                <li class="tab-link" data-tab="orders-tab">Orders</li>
+                <li class="tab-link" data-tab="products-tab">Products</li>
+            </ul>
+        </div>
+        <div class="content">
+            <div id="dashboard-tab" class="tab-content active">
+                <h3>Dashboard</h3>
+                <div class="stats">
+                    <div class="stat-item">
+                        <h4>Total Products</h4>
+                        <p>120</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>Total Orders</h4>
+                        <p>250</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>Total Sales</h4>
+                        <p>$50,000</p>
+                    </div>
+                </div>
+                <div class="stats-grid">
+                    <!-- Existing stat boxes... -->
+                    <div class="stat-box">
+                        <h4>Total Sold This Week</h4>
+                        <canvas id="salesChart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div id="users-tab" class="tab-content">
+                <h3>Users</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>John Doe</td>
+                            <td>john@example.com</td>
+                            <td>Active</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Jane Smith</td>
+                            <td>jane@example.com</td>
+                            <td>Inactive</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Bob Johnson</td>
+                            <td>bob@example.com</td>
+                            <td>Active</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="messages-tab" class="tab-content">
+                <h3>Messages</h3>
+                <ul class="messages">
+                    <li>
+                        <strong>John Doe:</strong> Can I change my order?
+                        <span class="timestamp">2024-08-21 10:23 AM</span>
+                    </li>
+                    <li>
+                        <strong>Jane Smith:</strong> I didn't receive my package yet.
+                        <span class="timestamp">2024-08-20 08:15 AM</span>
+                    </li>
+                    <li>
+                        <strong>Bob Johnson:</strong> Thank you for the quick response!
+                        <span class="timestamp">2024-08-19 02:45 PM</span>
+                    </li>
+                </ul>
+            </div>
+            <div id="orders-tab" class="tab-content">
+                <h3>Orders</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Product</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1001</td>
+                            <td>John Doe</td>
+                            <td>Smartphone X</td>
+                            <td>Shipped</td>
+                        </tr>
+                        <tr>
+                            <td>1002</td>
+                            <td>Jane Smith</td>
+                            <td>Laptop Pro</td>
+                            <td>Pending</td>
+                        </tr>
+                        <tr>
+                            <td>1003</td>
+                            <td>Bob Johnson</td>
+                            <td>Tablet Mini</td>
+                            <td>Delivered</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="products-tab" class="tab-content">
+                <h3>Products</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product ID</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2001</td>
+                            <td>Smartphone X</td>
+                            <td>Electronics</td>
+                            <td>$999</td>
+                        </tr>
+                        <tr>
+                            <td>2002</td>
+                            <td>Laptop Pro</td>
+                            <td>Computers</td>
+                            <td>$1299</td>
+                        </tr>
+                        <tr>
+                            <td>2003</td>
+                            <td>Tablet Mini</td>
+                            <td>Tablets</td>
+                            <td>$499</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab-link');
+            const contents = document.querySelectorAll('.tab-content');
+        
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(item => item.classList.remove('active'));
+                    contents.forEach(content => content.classList.remove('active'));
+        
+                    tab.classList.add('active');
+                    document.getElementById(tab.dataset.tab).classList.add('active');
+                });
+            });
+        
+            // Initialize Chart.js
+            const ctx = document.getElementById('salesChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                    datasets: [{
+                        label: 'Total Sold',
+                        data: [120, 150, 180, 200, 160, 140, 170], // Dummy data for sales
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+        
+    </script>
+</body>
+</html>

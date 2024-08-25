@@ -112,6 +112,15 @@
     gap: 4rem;
     margin-bottom: .5rem;
 }
+.checkout-payment-items{
+    max-height: 120px;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.checkout-payment-items::-webkit-scrollbar {
+    display: none;
+}
 .checkout-payment-mop{
     display: flex;
     flex-direction: column;

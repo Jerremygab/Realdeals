@@ -38,7 +38,7 @@ include 'components/cart-btn.php';
 		<!--welcome-hero end -->
         <?php
             $pid = $_GET['pid'];
-            $select_products = $conn->prepare("SELECT * FROM `products2` LEFT JOIN pdetails ON pdetails.pid = products2.id WHERE id = ?"); 
+            $select_products = $conn->prepare("SELECT * FROM `products2` WHERE id = ?"); 
             $select_products->execute([$pid]);
             if($select_products->rowCount() > 0){
             while($fetch_product = $select_products->fetch(PDO::FETCH_ASSOC)){
@@ -53,7 +53,7 @@ include 'components/cart-btn.php';
                 <div class="quickview-content-box">
                     <form action="" method="post">
                         <input type="hidden" name="pid" value="<?= $fetch_product['id']; ?>">
-                        <input type="hidden" name="name" value="<?= $fetch_product['pname']; ?>">
+                        <input type="hidden" name="name" value="<?= $fetch_product['product_name']; ?>">
                         <input type="hidden" name="price" value="<?= $fetch_product['price']; ?>">
                         <input type="hidden" name="image" value="<?= $fetch_product['pimage1']; ?>">
                     <div class="quickview-content-item">
@@ -68,7 +68,7 @@ include 'components/cart-btn.php';
                             </div>
                         </div>
                         <div class="quickview-content-text">
-                            <h2><a><?= $fetch_product['pname']; ?> </a></h2>
+                            <h2><a><?= $fetch_product['product_name']; ?> </a></h2>
                             <p><?= $fetch_product['description']; ?></p>
                             <h3>$<?= $fetch_product['price']; ?></h3>
                             <div class="featured-cars-rating">
@@ -155,7 +155,7 @@ include 'components/cart-btn.php';
                     
 				<div class="featured-cars-content" style="padding-top: 32px;">
                     <?php
-                        $select_products = $conn->prepare("SELECT * FROM `products2` LEFT JOIN pdetails ON pdetails.pid = products2.id ORDER BY RAND() LIMIT 4;"); 
+                        $select_products = $conn->prepare("SELECT * FROM `products2` ORDER BY RAND() LIMIT 4;"); 
                         $select_products->execute();
                         if($select_products->rowCount() > 0){
                         while($fetch_product = $select_products->fetch(PDO::FETCH_ASSOC)){

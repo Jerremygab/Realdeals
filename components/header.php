@@ -50,11 +50,11 @@
 						<!-- Modal content-->
 						<div class="modal-content" style="width: 350px;">
 								<?php          
-									$count_cart_items = $conn->prepare("SELECT * FROM `cart` LEFT JOIN users ON cart.user_id = users.id WHERE user_id = ? AND cart.status <> 'completed'");
+									$count_cart_items = $conn->prepare("SELECT * FROM `cart` LEFT JOIN users ON cart.user_id = users.id WHERE user_id = ? AND cart.status = ''");
 									$count_cart_items->execute([$user_id]);
 									$total_cart_counts = $count_cart_items->rowCount();
 
-									$count_completed_items = $conn->prepare("SELECT * FROM `cart` LEFT JOIN users ON cart.user_id = users.id WHERE user_id = ? AND cart.status <> 'completed'");
+									$count_completed_items = $conn->prepare("SELECT * FROM `cart` LEFT JOIN users ON cart.user_id = users.id WHERE user_id = ? AND cart.status = 'completed'");
 									$count_completed_items->execute([$user_id]);
 									$total_completed_counts = $count_cart_items->rowCount();
 
@@ -77,10 +77,10 @@
 										<td>In Cart:</td>
 										<td><?= $total_cart_counts; ?></td>
 									</tr>
-									<tr>
+									<!-- <tr>
 										<td>My Purchase:</td>
 										<td><?= $total_completed_counts; ?></td>
-									</tr>
+									</tr> -->
 									<tr>
 										<td>Total Spent</td>
 										<td>$209</td>
