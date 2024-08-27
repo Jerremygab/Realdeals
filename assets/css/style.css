@@ -61,6 +61,7 @@ a,a:hover,a:active,a:focus {
 	color: #444a57;
     font-weight: 500;
     text-transform: capitalize;
+    text-decoration: none;
 }
 h1,h2,h3,h4,h5,h6 { 
 	margin: 0;
@@ -487,7 +488,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #4e4ffa;}
 /*-------------------------------------
         5. Service 
 --------------------------------------*/
-.service { padding: 260px 0 87px;}
+.service { padding: 112px 0 87px;}
 
 .single-service-item{
     text-align: center;
@@ -575,8 +576,14 @@ nav.navbar.bootsnav .navbar-toggle i{color: #4e4ffa;}
     padding:112px 0 120px;
 }
 .featured-cars-content{padding-top:96px;}
-
-/*.single-featured-cars*/
+/* .featured-cars-content form{
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+} */
+.single-featured-cars{
+    
+}
 /* .featured-img-box {
     border: 1px solid #dadfe9;
 } */

@@ -59,7 +59,7 @@ if(isset($_POST['signup'])){
                 <div class="login-content">
                     <div class="login-form">
                         <h2>Sign Up</h2>
-                        <form action="login.php" method="post" >
+                        <form action="" method="post" >
                             <div class="form-input">
                                 <i class="fa-solid fa-user icons"></i>
                                 <input type="text" name="name" required placeholder="enter your username" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">

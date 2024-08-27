@@ -72,17 +72,23 @@ if (isset($_POST['submit'])) {
         <?php
             $count_cart_items = $conn->prepare("SELECT * FROM `cart` 
                                                 LEFT JOIN users ON cart.user_id = users.id 
-                                                WHERE user_id = ? AND cart.status = 'completed'");
+                                                WHERE user_id = ? AND cart.status = 'Y'");
             $count_cart_items->execute([$user_id]);
             $total_cart_counts = $count_cart_items->rowCount(); 
 
-            $count_completed_items = $conn->prepare("SELECT * FROM `orders` 
-                                                WHERE user_id = ? AND orders.payment_status = 'completed'");
+            $count_completed_items = $conn->prepare("SELECT *
+                                                    FROM cart T1
+                                                    JOIN orders T2
+                                                    ON FIND_IN_SET(T1.id, T2.cart_id) > 0 
+                                                    WHERE T1.user_id = ? AND T2.payment_status = 'completed'");
             $count_completed_items->execute([$user_id]);
             $total_completed_counts = $count_completed_items->rowCount();
 
-            $count_pending_items = $conn->prepare("SELECT * FROM `orders` 
-                                                WHERE user_id = ? AND orders.payment_status = 'pending'");
+            $count_pending_items = $conn->prepare("SELECT *
+                                                FROM cart T1
+                                                JOIN orders T2
+                                                ON FIND_IN_SET(T1.id, T2.cart_id) > 0 
+                                                WHERE T1.user_id = ? AND T2.payment_status = 'pending'");
             $count_pending_items->execute([$user_id]);
             $total_pending_counts = $count_pending_items->rowCount();
         ?>
@@ -95,32 +101,12 @@ if (isset($_POST['submit'])) {
                         <p><?= $total_cart_counts; ?> items</p>
                     </div>
                     <?php
-                    $select_cart = $conn->prepare("SELECT 
-                                                    cart.id AS cart_id, 
-                                                    GROUP_CONCAT(DISTINCT products2.id) AS product_ids, 
-                                                    GROUP_CONCAT(DISTINCT products2.product_name) AS product_names,
-                                                    products2.brand, 
-                                                    products2.category, 
-                                                    products2.type, 
-                                                    products2.color, 
-                                                    cart.product_name, 
-                                                    cart.image, 
-                                                    cart.user_id, 
-                                                    cart.status, 
-                                                    cart.price,
-                                                    cart.quantity,
-                                                    users.user_name, 
-                                                    users.email,
-                                                    DATE_FORMAT(orders.placed_on, '%y-%m-%d') AS placed_on,
-                                                    orders.payment_status,
-                                                    orders.method
-                                                FROM cart 
-                                                INNER JOIN products2 ON products2.id = cart.product_id 
-                                                INNER JOIN users ON cart.user_id = users.id 
-                                                INNER JOIN orders ON cart.user_id = orders.user_id 
-                                                WHERE cart.user_id = ? AND cart.status = 'completed'
-                                                GROUP BY cart.id, cart.user_id, cart.status, users.user_name, users.email;
-                                                ");
+                    $select_cart = $conn->prepare("SELECT *
+                                                    FROM cart T1
+                                                    JOIN orders T2
+                                                    ON FIND_IN_SET(T1.id, T2.cart_id) > 0
+                                                    LEFT JOIN products2 T3 ON T3.id = T1.product_id
+                                                    WHERE T1.user_id = ? AND T1.status = 'Y'");
                     $grand_total = 0;
                     $select_cart->execute([$user_id]);
                     if($select_cart->rowCount() > 0){
@@ -147,7 +133,7 @@ if (isset($_POST['submit'])) {
                             <div class="cart-item-total" style="padding: 0;">
                                 <p><?= $fetch_cart['placed_on']; ?></p>
                             </div>
-                            <div class="cart-item-icon" style="padding: 0;">
+                            <div class="cart-item-icon" style="padding: 0; width: 90px;">
                                <p style="text-transform: capitalize;"><?= $fetch_cart['payment_status']; ?></p>
                             </div>
                         </div>

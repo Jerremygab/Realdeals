@@ -9,6 +9,9 @@ subImages.forEach(images =>{
 });
 function setEqualHeight() {
    var items = document.querySelectorAll('.single-service-item');
+   var prods = document.querySelectorAll('.single-product-box');
+   var prodsAdmin = document.querySelectorAll('.single-product-box');
+   var tests = document.querySelectorAll('.single-featured-cars');
    var maxHeight = 0;
 
    items.forEach(function(item) {
@@ -20,6 +23,39 @@ function setEqualHeight() {
 
    items.forEach(function(item) {
        item.style.height = maxHeight + 'px';
+   });
+   
+   prods.forEach(function(prod) {
+       var prodHeight = prod.offsetHeight;
+       if (prodHeight > maxHeight) {
+           maxHeight = prodHeight;
+       }
+   });
+
+   prods.forEach(function(prod) {
+       prod.style.height = maxHeight + 'px';
+   });
+
+   prodsAdmin.forEach(function(prodAdmin) {
+       var prodAdminHeight = prodAdmin.offsetHeight;
+       if (prodAdminHeight > maxHeight) {
+           maxHeight = prodAdminHeight;
+       }
+   });
+
+   prodsAdmin.forEach(function(prodAdmin) {
+       prodAdmin.style.height = maxHeight + 'px';
+   });
+
+   tests.forEach(function(test) {
+       var testHeight = test.offsetHeight;
+       if (testHeight > maxHeight) {
+           maxHeight = testHeight;
+       }
+   });
+
+   tests.forEach(function(test) {
+       test.style.height = maxHeight + 'px';
    });
 }
 

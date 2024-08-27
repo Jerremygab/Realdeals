@@ -26,7 +26,7 @@
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
 						<i class="fa fa-bars"></i>
 					</button>
-					<a class="navbar-brand" href="index.html"><img src="assets/logo/realdeals-removebg-preview.png" alt=""></a>
+					<a class="navbar-brand" href="admin.php"><img src="assets/logo/realdeals-removebg-preview.png" alt=""></a>
 
 				</div><!--/.navbar-header-->
 				<!-- End Header Navigation -->
@@ -36,9 +36,9 @@
 					<ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
 						<li class=" scrolls actives"><a href="index.php">home</a></li>
 						<li class="scrolls"><a href="shop.php">all products</a></li>
-						<li class="scrolls"><a href="#">orders</a></li>
+						<li class="scrolls"><a href="orders.php">orders</a></li>
 						<li class="scrolls"><a href="#contact">contact</a></li>
-						<li class="scrolls"><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></li>
+						<li class="scrolls"><a href="search.php"><i class="fa-solid fa-magnifying-glass"></i></a></li>
 						<li class="scrolls"><a href="cart.php"><i class="fa-solid fa-cart-shopping"></i></a></li>
 						<li class="scrolls"><a><i class="fa-solid fa-user" data-toggle="modal" data-target="#myModal"></i></a></li>
 					</ul><!--/.nav -->
@@ -81,10 +81,10 @@
 										<td>My Purchase:</td>
 										<td><?= $total_completed_counts; ?></td>
 									</tr> -->
-									<tr>
+									<!-- <tr>
 										<td>Total Spent</td>
 										<td>$209</td>
-									</tr>
+									</tr> -->
 								</table>
 							</div>
 							<div class="modal-footer">

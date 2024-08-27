@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
 </head>
 <body>
     <!-- https://themewagon.github.io/modernize-mui-admin#! -->
@@ -331,37 +332,159 @@
                 </table>
             </div>
             <div id="products-tab" class="tab-content">
-                <h3>Products</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Product ID</th>
-                            <th>Name</th>
-                            <th>Category</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>2001</td>
-                            <td>Smartphone X</td>
-                            <td>Electronics</td>
-                            <td>$999</td>
-                        </tr>
-                        <tr>
-                            <td>2002</td>
-                            <td>Laptop Pro</td>
-                            <td>Computers</td>
-                            <td>$1299</td>
-                        </tr>
-                        <tr>
-                            <td>2003</td>
-                            <td>Tablet Mini</td>
-                            <td>Tablets</td>
-                            <td>$499</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <h3>Add Products</h3>
+                <form action="" method="post">
+                    <div class="add-products-form">
+                        <table>
+                            <tr class="add-products-input">
+                                <td>Product Name</td>
+                                <td><input type="text" name="pname" required></td>
+                            </tr>
+                            <tr class="add-products-input">
+                                <td>Description</td>
+                                <td><input type="text" name="description" required></td>
+                            </tr>
+                            <tr class="add-products-input">
+                                <td>Brand</td>
+                                <td><input type="text" name="brand" required></td>
+                            </tr>
+                            <tr class="add-products-input">
+                                <td>Category</td>
+                                <td><input type="text" name="category" placeholder="Peripheral, PC Component, Console, .etc" required></td>
+                            </tr>
+                            <tr class="add-products-input">
+                                <td>Type</td>
+                                <td><input type="text" name="type" placeholder="Motherboard, Mouse, Printer, .etc" required></td>
+                            </tr>
+                            <tr class="add-products-input">
+                                <td>Color</td>
+                                <td><input type="text" name="color" required></td>
+                            </tr>
+                            <tr class="add-products-input">
+                                <td>Special Features</td>
+                                <td><input type="text" name="specs" required></td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr class="add-products-input">
+                                <td>Compatibility</td>
+                                <td><input type="text" name="compatibility" required></td>
+                            </tr>
+                            <tr class="add-products-input">
+                                <td>Inside the box</td>
+                                <td><input type="text" name="box" required></td>
+                            </tr>
+                            <tr class="add-products-input">
+                                <td>Price</td>
+                                <td><input type="number" name="price" required></td>
+                            </tr>
+                            <tr class="add-products-input">
+                                <td>Sold</td>
+                                <td><input type="number" name="sold" required></td>
+                            </tr>
+                            <tr class="add-products-input">
+                                <td>Image 1</td>
+                                <td><input type="file" name="Image_1" accept="image/jpg, image/jpeg, image/png, image/webp" required></td>
+                            </tr>
+                            <tr class="add-products-input">
+                                <td>Image 2</td>
+                                <td><input type="file" name="Image_2" accept="image/jpg, image/jpeg, image/png, image/webp" required></td>
+                            </tr>
+                            <tr class="add-products-input">
+                                <td>Image 3</td>
+                                <td><input type="file" name="Image_3" accept="image/jpg, image/jpeg, image/png, image/webp" required></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="add-products-btn">
+                        <input type="submit" value="Add Product" name="add_product">
+                    </div>  
+                </form>
+                <h3>Product list</h3>
+                <div class="product-list-container">
+                    <div class="product-list-content">
+                        <div class="product-list-card">
+                            <img src="assets/images/featured/pro-x-superlight.jpg" alt="">
+                            <b>Product Name</b>
+                            <p>Brand / Category / Type / Color</p>
+                            <p>Price</p>
+                            <div class="product-list-card-btn">
+                                <a href="update_product.php?update=<?= $fetch_products['id']; ?>" class="update-btn">update</a>
+                                <a href="products.php?delete=<?= $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('delete this product?');"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-list-card">
+                            <img src="assets/images/featured/pro-x-superlight.jpg" alt="">
+                            <b>Product Name</b>
+                            <p>Brand / Category / Type / Color</p>
+                            <p>Price</p>
+                            <div class="product-list-card-btn">
+                                <a href="update_product.php?update=<?= $fetch_products['id']; ?>" class="update-btn">update</a>
+                                <a href="products.php?delete=<?= $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('delete this product?');"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-list-card">
+                            <img src="assets/images/featured/pro-x-superlight.jpg" alt="">
+                            <b>Product Name</b>
+                            <p>Brand / Category / Type / Color</p>
+                            <p>Price</p>
+                            <div class="product-list-card-btn">
+                                <a href="update_product.php?update=<?= $fetch_products['id']; ?>" class="update-btn">update</a>
+                                <a href="products.php?delete=<?= $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('delete this product?');"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-list-card">
+                            <img src="assets/images/featured/pro-x-superlight.jpg" alt="">
+                            <b>Product Name</b>
+                            <p>Brand / Category / Type / Color</p>
+                            <p>Price</p>
+                            <div class="product-list-card-btn">
+                                <a href="update_product.php?update=<?= $fetch_products['id']; ?>" class="update-btn">update</a>
+                                <a href="products.php?delete=<?= $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('delete this product?');"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-list-card">
+                            <img src="assets/images/featured/pro-x-superlight.jpg" alt="">
+                            <b>Product Name</b>
+                            <p>Brand / Category / Type / Color</p>
+                            <p>Price</p>
+                            <div class="product-list-card-btn">
+                                <a href="update_product.php?update=<?= $fetch_products['id']; ?>" class="update-btn">update</a>
+                                <a href="products.php?delete=<?= $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('delete this product?');"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-list-card">
+                            <img src="assets/images/featured/pro-x-superlight.jpg" alt="">
+                            <b>Product Name</b>
+                            <p>Brand / Category / Type / Color</p>
+                            <p>Price</p>
+                            <div class="product-list-card-btn">
+                                <a href="update_product.php?update=<?= $fetch_products['id']; ?>" class="update-btn">update</a>
+                                <a href="products.php?delete=<?= $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('delete this product?');"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-list-card">
+                            <img src="assets/images/featured/pro-x-superlight.jpg" alt="">
+                            <b>Product Name</b>
+                            <p>Brand / Category / Type / Color</p>
+                            <p>Price</p>
+                            <div class="product-list-card-btn">
+                                <a href="update_product.php?update=<?= $fetch_products['id']; ?>" class="update-btn">update</a>
+                                <a href="products.php?delete=<?= $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('delete this product?');"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-list-card">
+                            <img src="assets/images/featured/pro-x-superlight.jpg" alt="">
+                            <b>Product Name</b>
+                            <p>Brand / Category / Type / Color</p>
+                            <p>Price</p>
+                            <div class="product-list-card-btn">
+                                <a href="update_product.php?update=<?= $fetch_products['id']; ?>" class="update-btn">update</a>
+                                <a href="products.php?delete=<?= $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('delete this product?');"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

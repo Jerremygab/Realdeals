@@ -61,7 +61,7 @@ include 'components/cart-btn.php';
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
 						<i class="fa fa-bars"></i>
 					</button>
-					<a class="navbar-brand" href="index.html"><img src="assets/logo/realdeals-removebg-preview.png" alt=""></a>
+					<a class="navbar-brand" href="admin.php"><img src="assets/logo/realdeals-removebg-preview.png" alt=""></a>
 
 				</div><!--/.navbar-header-->
 				<!-- End Header Navigation -->
@@ -71,9 +71,9 @@ include 'components/cart-btn.php';
 					<ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
 						<li class=" scrolls actives"><a href="index.php" style="color: #f5f7fa;">home</a></li>
 						<li class="scrolls"><a href="shop.php" style="color: #f5f7fa;">all products</a></li>
-						<li class="scrolls"><a href="#" style="color: #f5f7fa;">orders</a></li>
+						<li class="scrolls"><a href="orders.php" style="color: #f5f7fa;">orders</a></li>
 						<li class="scrolls"><a href="#contact" style="color: #f5f7fa;">contact</a></li>
-						<li class="scrolls"><a href="#" style="color: #f5f7fa;"><i class="fa-solid fa-magnifying-glass"></i></a></li>
+						<li class="scrolls"><a href="search.php" style="color: #f5f7fa;"><i class="fa-solid fa-magnifying-glass"></i></a></li>
 						<li class="scrolls"><a href="cart.php" style="color: #f5f7fa;"><i class="fa-solid fa-cart-shopping"></i></a></li>
 						<li class="scrolls"><a><i class="fa-solid fa-user" data-toggle="modal" data-target="#myModal" style="color: #f5f7fa;"></i></a></li>
 					</ul><!--/.nav -->
@@ -104,14 +104,14 @@ include 'components/cart-btn.php';
 										<td>In Cart:</td>
 										<td><?= $total_cart_counts; ?></td>
 									</tr>
-									<tr>
+									<!-- <tr>
 										<td>My Purchase:</td>
 										<td>2</td>
 									</tr>
 									<tr>
 										<td>Total Spent</td>
 										<td>$209</td>
-									</tr>
+									</tr> -->
 								</table>
 							</div>
 							<div class="modal-footer">
@@ -159,7 +159,7 @@ include 'components/cart-btn.php';
 				</div>
 			</div>
 
-			<div class="container">
+			<!-- <div class="container">
 				<div class="row">
 					<div class="col-md-12">
 						<div class="model-search-content">
@@ -194,7 +194,7 @@ include 'components/cart-btn.php';
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 
 		</section><!--/.welcome-hero-->
 		<!--welcome-hero end -->
