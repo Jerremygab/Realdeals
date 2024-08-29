@@ -55,16 +55,16 @@ include 'components/cart-btn.php';
                         <input type="hidden" name="pid" value="<?= $fetch_product['id']; ?>">
                         <input type="hidden" name="name" value="<?= $fetch_product['product_name']; ?>">
                         <input type="hidden" name="price" value="<?= $fetch_product['price']; ?>">
-                        <input type="hidden" name="image" value="<?= $fetch_product['pimage1']; ?>">
+                        <input type="hidden" name="image" value="<?= $fetch_product['image_01']; ?>">
                     <div class="quickview-content-item">
                         <div class="quickview-content-img">
                             <div class="quickview-main-img">
-                                <img src="assets/images/products<?= $fetch_product['pimage1']; ?>" alt="">
+                                <img src="assets/images/products<?= $fetch_product['image_01']; ?>" alt="">
                             </div>
                             <div class="quickview-sub-img">
-                                <img src="assets/images/products<?= $fetch_product['pimage2']; ?>" alt="">
-                                <img src="assets/images/products<?= $fetch_product['pimage3']; ?>" alt="">
-                                <img src="assets/images/products<?= $fetch_product['pimage1']; ?>" alt="">
+                                <img src="assets/images/products<?= $fetch_product['image_01']; ?>" alt="">
+                                <img src="assets/images/products<?= $fetch_product['image_02']; ?>" alt="">
+                                <img src="assets/images/products<?= $fetch_product['image_03']; ?>" alt="">
                             </div>
                         </div>
                         <div class="quickview-content-text">
@@ -164,14 +164,14 @@ include 'components/cart-btn.php';
                         <input type="hidden" name="pid" value="<?= $fetch_product['id']; ?>">
                         <input type="hidden" name="name" value="<?= $fetch_product['pname']; ?>">
                         <input type="hidden" name="price" value="<?= $fetch_product['price']; ?>">
-                        <input type="hidden" name="image" value="<?= $fetch_product['pimage1']; ?>">
+                        <input type="hidden" name="image" value="<?= $fetch_product['image_01']; ?>">
 					<div class="row">
 						<div class="col-lg-3 col-md-4 col-sm-6">
                             <a href="quickview.php?pid=<?= $fetch_product['id']; ?>">
                                 <div class="single-product-box">
                                     <div class="product-img-box">
                                         <div class="product-img">
-                                            <img src="assets/images/products/<?= $fetch_product['pimage1']; ?>" alt="">
+                                            <img src="assets/images/products/<?= $fetch_product['image_01']; ?>" alt="">
                                         </div>
                                     </div>
                                     <div class="featured-cars-txt solds">
