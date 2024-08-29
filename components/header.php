@@ -26,7 +26,7 @@
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
 						<i class="fa fa-bars"></i>
 					</button>
-					<a class="navbar-brand" href="admin.php"><img src="assets/logo/realdeals-removebg-preview.png" alt=""></a>
+					<a class="navbar-brand" href="admin/admin.php"><img src="assets/logo/realdeals-removebg-preview.png" alt=""></a>
 
 				</div><!--/.navbar-header-->
 				<!-- End Header Navigation -->
