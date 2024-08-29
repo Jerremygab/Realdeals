@@ -21,7 +21,10 @@
                     <li class="tab-link" data-tab="products-tab">Products</li>
                 </ul>
             </div>
-            <a href="components/logout.php" onclick="return confirm('logout from the website?');">Logout</a> 
+            <div class="sidebar-footer">
+                <a href="components/logout.php" onclick="return confirm('logout from the website?');">Logout</a> 
+                <i class="fa-solid fa-store"></i>
+            </div>
         </div>
         <div class="content">
             <div id="dashboard-tab" class="tab-content active">
@@ -256,7 +259,9 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Status</th>
+                            <th>Orders</th>
+                            <th>Total Spent</th>
+                            <th> - </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -264,19 +269,25 @@
                             <td>1</td>
                             <td>John Doe</td>
                             <td>john@example.com</td>
-                            <td>Active</td>
+                            <td>12</td>
+                            <td>123</td>
+                            <td><i class="fas fa-trash"></i></td>
                         </tr>
                         <tr>
                             <td>2</td>
                             <td>Jane Smith</td>
                             <td>jane@example.com</td>
-                            <td>Inactive</td>
+                            <td>12</td>
+                            <td>123</td>
+                            <td><i class="fas fa-trash"></i></td>
                         </tr>
                         <tr>
                             <td>3</td>
                             <td>Bob Johnson</td>
                             <td>bob@example.com</td>
-                            <td>Active</td>
+                            <td>1</td>
+                            <td>23</td>
+                            <td><i class="fas fa-trash"></i></td>
                         </tr>
                     </tbody>
                 </table>
@@ -304,13 +315,21 @@
                     <thead>
                         <tr>
                             <th>Order ID</th>
-                            <th>Customer</th>
-                            <th>Product</th>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Contact</th>
+                            <th>MOP</th>
+                            <th>Products</th>
+                            <th>Total</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
+                            <td>1001</td>
+                            <td>John Doe</td>
+                            <td>Smartphone X Smartphone X Smartphone X</td>
+                            <td>Shipped</td>
                             <td>1001</td>
                             <td>John Doe</td>
                             <td>Smartphone X</td>
@@ -321,12 +340,26 @@
                             <td>Jane Smith</td>
                             <td>Laptop Pro</td>
                             <td>Pending</td>
+                            <td>1002</td>
+                            <td>Jane Smith</td>
+                            <td>Laptop Pro Laptop Pro Laptop Pro Laptop Pro Laptop Pro</td>
+                            <td>Pending</td>
                         </tr>
                         <tr>
                             <td>1003</td>
                             <td>Bob Johnson</td>
                             <td>Tablet Mini</td>
                             <td>Delivered</td>
+                            <td>1003</td>
+                            <td>Bob Johnson</td>
+                            <td>Tablet Mini</td>
+                            <td>
+                                <select>
+                                    <option value="">Pending</option>
+                                    <option value="">Complete</option>
+                                </select>
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -406,78 +439,8 @@
                         <div class="product-list-card">
                             <img src="assets/images/featured/pro-x-superlight.jpg" alt="">
                             <b>Product Name</b>
-                            <p>Brand / Category / Type / Color</p>
-                            <p>Price</p>
-                            <div class="product-list-card-btn">
-                                <a href="update_product.php?update=<?= $fetch_products['id']; ?>" class="update-btn">update</a>
-                                <a href="products.php?delete=<?= $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('delete this product?');"><i class="fas fa-trash"></i></a>
-                            </div>
-                        </div>
-                        <div class="product-list-card">
-                            <img src="assets/images/featured/pro-x-superlight.jpg" alt="">
-                            <b>Product Name</b>
-                            <p>Brand / Category / Type / Color</p>
-                            <p>Price</p>
-                            <div class="product-list-card-btn">
-                                <a href="update_product.php?update=<?= $fetch_products['id']; ?>" class="update-btn">update</a>
-                                <a href="products.php?delete=<?= $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('delete this product?');"><i class="fas fa-trash"></i></a>
-                            </div>
-                        </div>
-                        <div class="product-list-card">
-                            <img src="assets/images/featured/pro-x-superlight.jpg" alt="">
-                            <b>Product Name</b>
-                            <p>Brand / Category / Type / Color</p>
-                            <p>Price</p>
-                            <div class="product-list-card-btn">
-                                <a href="update_product.php?update=<?= $fetch_products['id']; ?>" class="update-btn">update</a>
-                                <a href="products.php?delete=<?= $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('delete this product?');"><i class="fas fa-trash"></i></a>
-                            </div>
-                        </div>
-                        <div class="product-list-card">
-                            <img src="assets/images/featured/pro-x-superlight.jpg" alt="">
-                            <b>Product Name</b>
-                            <p>Brand / Category / Type / Color</p>
-                            <p>Price</p>
-                            <div class="product-list-card-btn">
-                                <a href="update_product.php?update=<?= $fetch_products['id']; ?>" class="update-btn">update</a>
-                                <a href="products.php?delete=<?= $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('delete this product?');"><i class="fas fa-trash"></i></a>
-                            </div>
-                        </div>
-                        <div class="product-list-card">
-                            <img src="assets/images/featured/pro-x-superlight.jpg" alt="">
-                            <b>Product Name</b>
-                            <p>Brand / Category / Type / Color</p>
-                            <p>Price</p>
-                            <div class="product-list-card-btn">
-                                <a href="update_product.php?update=<?= $fetch_products['id']; ?>" class="update-btn">update</a>
-                                <a href="products.php?delete=<?= $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('delete this product?');"><i class="fas fa-trash"></i></a>
-                            </div>
-                        </div>
-                        <div class="product-list-card">
-                            <img src="assets/images/featured/pro-x-superlight.jpg" alt="">
-                            <b>Product Name</b>
-                            <p>Brand / Category / Type / Color</p>
-                            <p>Price</p>
-                            <div class="product-list-card-btn">
-                                <a href="update_product.php?update=<?= $fetch_products['id']; ?>" class="update-btn">update</a>
-                                <a href="products.php?delete=<?= $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('delete this product?');"><i class="fas fa-trash"></i></a>
-                            </div>
-                        </div>
-                        <div class="product-list-card">
-                            <img src="assets/images/featured/pro-x-superlight.jpg" alt="">
-                            <b>Product Name</b>
-                            <p>Brand / Category / Type / Color</p>
-                            <p>Price</p>
-                            <div class="product-list-card-btn">
-                                <a href="update_product.php?update=<?= $fetch_products['id']; ?>" class="update-btn">update</a>
-                                <a href="products.php?delete=<?= $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('delete this product?');"><i class="fas fa-trash"></i></a>
-                            </div>
-                        </div>
-                        <div class="product-list-card">
-                            <img src="assets/images/featured/pro-x-superlight.jpg" alt="">
-                            <b>Product Name</b>
-                            <p>Brand / Category / Type / Color</p>
-                            <p>Price</p>
+                            <p style="font-size:12px;">Brand / Category / Type / Color</p>
+                            <p style="font-size:14px;">Price</p>
                             <div class="product-list-card-btn">
                                 <a href="update_product.php?update=<?= $fetch_products['id']; ?>" class="update-btn">update</a>
                                 <a href="products.php?delete=<?= $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('delete this product?');"><i class="fas fa-trash"></i></a>

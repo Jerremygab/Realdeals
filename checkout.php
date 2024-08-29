@@ -141,7 +141,7 @@ if(isset($_POST['place_order'])){
                                 if ($select_cart->rowCount() > 0) {
                                     while($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)) {
                                         $cart_id[] = $fetch_cart['id'];
-                                        $cart_items[] = $fetch_cart['product_name'] . ' (' . $fetch_cart['price'] . ' x ' . $fetch_cart['quantity'] . ') - ';
+                                        $cart_items[] = $fetch_cart['product_name'] . ' (' . $fetch_cart['price'] . ' x ' . $fetch_cart['quantity'] . ') ';
                                         $grand_total += ($fetch_cart['price'] * $fetch_cart['quantity']);
                                 ?>
                                 <div class="checkout-payment-list">
@@ -154,7 +154,7 @@ if(isset($_POST['place_order'])){
                                 <?php
                                     }
                                     $cart_ids = implode(',', $cart_id); 
-                                    $total_products = implode('', $cart_items);
+                                    $total_products = implode(' - ', $cart_items);
 
                                 } else {
                                     echo '<p class="empty">your cart is empty!</p>';

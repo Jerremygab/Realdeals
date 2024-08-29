@@ -61,12 +61,12 @@ body {
 .sidebar a {
     color: #fff;
     text-decoration: none;
+    width: 100%;
     padding: 15px;
     cursor: pointer;
     text-align: center;
     background-color: #4e4ffa;
     border: 1px solid #4e4ffa;
-    margin-bottom: 5px;
     border-radius: 1px;
     transition: background-color 0.3s;
 }
@@ -74,6 +74,23 @@ body {
 .sidebar a:hover {
     color: #000;
     background-color: transparent;
+}
+
+.sidebar-footer{
+    display: flex;
+    align-items: stretch;
+    gap: .5rem;
+}
+.sidebar-footer i{
+    color: #4e4ffa;
+    background: none;
+    border: 1px solid #4e4ffa;
+    padding: 1.2rem;
+    transition: background-color 0.3s;
+}
+.sidebar-footer i:hover{
+    color: #fff;
+    background: #4e4ffa;
 }
 
 .content {
@@ -234,7 +251,6 @@ p{
 .update-btn{
     color: #818998;
     background: none;
-    padding: .5rem;
     width: 100%;
     text-align: center;
     border: 1px solid #4e4ffa;
@@ -245,13 +261,11 @@ p{
     background: #4e4ffa;
 }
 .delete-btn{
-    color: #fff;
-    background: #4e4ffa;
-    border: 1px solid #4e4ffa;
+    color: #4e4ffa;
     padding: .5rem;
     transition: .3s ease-in-out all;
 }
 .delete-btn:hover{
-    color: #4e4ffa;
+    color: #2929c0;
     background: #fff;
 }
