@@ -162,9 +162,9 @@ if(isset($_POST['place_order'])){
                                 ?>
                         </div>
                         <div class="checkout-payment-list">
-                        <input type="hidden" name="total_products" value="<?= $total_products; ?>">
-                        <input type="hidden" name="cart_id" value="<?= $cart_ids; ?>">
-                        <input type="hidden" name="grandtotal" value="<?= $grand_total; ?>">
+                            <input type="hidden" name="total_products" value="<?= $total_products; ?>">
+                            <input type="hidden" name="cart_id" value="<?= $cart_ids; ?>">
+                            <input type="hidden" name="grandtotal" value="<?= $grand_total; ?>">
                         </div>
                         <div class="checkout-payment-list">
                             <input type="hidden" value="" name="subtotal">

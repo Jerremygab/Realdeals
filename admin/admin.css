@@ -218,6 +218,9 @@ p{
     font-family: Poppins;
     box-sizing: border-box;
 }
+.add-products-form td{
+    text-align: left;
+}
 .add-products-input input[type=file]{
     border: none;
 }
@@ -271,16 +274,16 @@ p{
     color: #fff;
     background: #4e4ffa;
 }
-.delete-btn{
-    color: #4e4ffa;
+.icon-btn{
+    color: #000;
     padding: .5rem;
     background: none;
     border: none;
     font-size: 16px;
     transition: .3s ease-in-out all;
 }
-.delete-btn:hover{
-    color: #2929c0;
+.icon-btn:hover{
+    color: #4e4ffa;
     background: #fff;
 }
 .users-con{

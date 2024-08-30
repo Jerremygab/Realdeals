@@ -93,6 +93,22 @@ if(isset($_POST['delete_prod'])){
     $delete_cart->execute([$product_id]);
     $message[] = 'Product deleted!';
     // header('location:admin.php');
+}
+if(isset($_POST['delete_user'])){
+
+    $user_id = $_POST['user_id'];
+    $delete_product = $conn->prepare("DELETE FROM `users` WHERE id = ?");
+    $delete_product->execute([$user_id]);
+    $message[] = 'User deleted!';
+    // header('location:admin.php');
+}
+if(isset($_POST['update_status'])){
+    $order_id = $_POST['order_id'];
+    $payment_status = $_POST['payment_status'];
+    $payment_status = filter_var($payment_status, FILTER_SANITIZE_STRING);
+    $update_payment = $conn->prepare("UPDATE `orders` SET payment_status = ? WHERE id = ?");
+    $update_payment->execute([$payment_status, $order_id]);
+    $message[] = 'Payment Status Updated!';
  }
 
 ?>
@@ -109,20 +125,6 @@ if(isset($_POST['delete_prod'])){
 </head>
 <body>
     <!-- https://themewagon.github.io/modernize-mui-admin#! -->
-     <header>
-        <?php
-        if(isset($message)){
-            foreach($message as $message){
-                echo '
-                <div class="message">
-                    <span>'.$message.'</span>
-                    <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
-                </div>
-                ';
-            }
-        }
-        ?>
-     </header>
     <div class="dashboard">
         <div class="sidebar">
             <div class="sidebar-flex">
@@ -141,29 +143,58 @@ if(isset($_POST['delete_prod'])){
             </div>
         </div>
         <div class="content">
+            <?php
+            if(isset($message)){
+                foreach($message as $message){
+                    echo '
+                    <div class="message">
+                        <span>'.$message.'</span>
+                        <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
+                    </div>
+                    ';
+                }
+            }
+            ?>
             <div id="dashboard-tab" class="tab-content active">
                 <h3>Dashboard</h3>
                 <div class="stats">
+                    <?php
+                        $select_stats = $conn->prepare("SELECT 
+                                                                (SELECT COUNT(*) FROM users) AS user_count,
+                                                                (SELECT COUNT(*) FROM messages) AS message_count,
+                                                                (SELECT COUNT(*) FROM products2) AS product_count,
+                                                                (SELECT COUNT(*) FROM orders) AS order_count,
+                                                                (SELECT COALESCE(SUM(total_price), 0) FROM orders) AS total_sold"); 
+                        $select_stats->execute();
+                        if($select_stats->rowCount() > 0){
+                        while($fetch_stats = $select_stats->fetch(PDO::FETCH_ASSOC)){
+                    ?>
                     <div class="stat-item">
                         <h4>Total Sales</h4>
-                        <p>$50,000</p>
+                        <p>$<?= $fetch_stats['total_sold']; ?></p>
                     </div>
                     <div class="stat-item">
                         <h4>Users</h4>
-                        <p>123</p>
+                        <p><?= $fetch_stats['user_count']; ?></p>
                     </div>
                     <div class="stat-item">
-                        <h4>Message </h4>
-                        <p>123</p>
+                        <h4>Messages </h4>
+                        <p><?= $fetch_stats['message_count']; ?></p>
                     </div>
                     <div class="stat-item">
-                        <h4>Total Orders</h4>
-                        <p>250</p>
+                        <h4>Completed Orders</h4>
+                        <p><?= $fetch_stats['order_count']; ?></p>
                     </div>
                     <div class="stat-item">
                         <h4>Total Products</h4>
-                        <p>120</p>
+                        <p><?= $fetch_stats['product_count']; ?></p>
                     </div>
+                    <?php
+                            }
+                        }else{
+                            echo '<p class="empty">No stats found!</p>';
+                        }
+                    ?>
                 </div>
                 <div class="stat-table-container">
                     <div class="stat-table-content">
@@ -176,119 +207,64 @@ if(isset($_POST['delete_prod'])){
                                     <th>Sold</th>
                                 </tr>
                             </thead>
+                            <?php
+                                $select_prodcuts_sold = $conn->prepare("SELECT * FROM `products2` ORDER BY SOLD DESC LIMIT 5;"); 
+                                $select_prodcuts_sold->execute();
+                                if($select_prodcuts_sold->rowCount() > 0){
+                                while($fetch_prodcuts_sold = $select_prodcuts_sold->fetch(PDO::FETCH_ASSOC)){
+                            ?>
                             <tbody>
                                 <tr>
-                                    <td>Smartphone X</td>
-                                    <td>$15,000</td>
-                                    <td>32</td>
-                                </tr>
-                                <tr>
-                                    <td>Laptop Pro</td>
-                                    <td>$12,000</td>
-                                    <td>31</td>
-                                </tr>
-                                <tr>
-                                    <td>Tablet Mini</td>
-                                    <td>$8,000</td>
-                                    <td>23</td>
-                                </tr>
-                                <tr>
-                                    <td>Smartwatch Z</td>
-                                    <td>$7,500</td>
-                                    <td>19</td>
-                                </tr>
-                                <tr>
-                                    <td>Wireless Headphones</td>
-                                    <td>$7,000</td>
-                                    <td>16</td>
+                                    <td><?= $fetch_prodcuts_sold['product_name']; ?></td>
+                                    <td><?= $fetch_prodcuts_sold['price']; ?></td>
+                                    <td><?= $fetch_prodcuts_sold['sold']; ?></td>
                                 </tr>
                             </tbody>
+                            <?php
+                                    }
+                                }else{
+                                    echo '<p class="empty">No products found!</p>';
+                                }
+                            ?>
                         </table>
                     </div>
-                    <div class="stat-table-content">
-                        <h4>Recent Orders</h4>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Date</th>
-                                    <th>Price</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Smartphone X</td>
-                                    <td>$15,000</td>
-                                    <td>32</td>
-                                    <td>pending</td>
-                                </tr>
-                                <tr>
-                                    <td>Laptop Pro</td>
-                                    <td>$12,000</td>
-                                    <td>31</td>
-                                    <td>pending</td>
-                                </tr>
-                                <tr>
-                                    <td>Tablet Mini</td>
-                                    <td>$8,000</td>
-                                    <td>23</td>
-                                    <td>pending</td>
-                                </tr>
-                                <tr>
-                                    <td>Smartwatch Z</td>
-                                    <td>$7,500</td>
-                                    <td>19</td>
-                                    <td>pending</td>
-                                </tr>
-                                <tr>
-                                    <td>Wireless Headphones</td>
-                                    <td>$7,000</td>
-                                    <td>16</td>
-                                    <td>pending</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="stat-table-container">
                     <div class="stat-table-content">
                         <h4>Top Customers by Total Spent</h4>
                         <table>
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Items</th>
+                                    <th>No of Items</th>
                                     <th>Total Spent</th>
                                 </tr>
                             </thead>
+                            <?php
+                                $select_top_customers = $conn->prepare("SELECT T0.id AS user_id, 
+                                                                        T0.user_name, SUM(T1.total_price) AS total_spent,
+                                                                        LENGTH(T1.cart_id) - LENGTH(REPLACE(T1.cart_id, ',', '')) + 1 AS item_count
+                                                                        FROM users T0
+                                                                        LEFT JOIN orders T1 ON T0.id = T1.user_id
+                                                                        GROUP BY T0.id, T0.user_name
+                                                                        HAVING total_spent IS NOT NULL
+                                                                        ORDER BY total_spent DESC
+                                                                        LIMIT 5;"); 
+                                $select_top_customers->execute();
+                                if($select_top_customers->rowCount() > 0){
+                                while($fetch_top_customers = $select_top_customers->fetch(PDO::FETCH_ASSOC)){
+                            ?>
                             <tbody>
                                 <tr>
-                                    <td>Smartphone X</td>
-                                    <td>$15,000</td>
-                                    <td>32</td>
-                                </tr>
-                                <tr>
-                                    <td>Laptop Pro</td>
-                                    <td>$12,000</td>
-                                    <td>31</td>
-                                </tr>
-                                <tr>
-                                    <td>Tablet Mini</td>
-                                    <td>$8,000</td>
-                                    <td>23</td>
-                                </tr>
-                                <tr>
-                                    <td>Smartwatch Z</td>
-                                    <td>$7,500</td>
-                                    <td>19</td>
-                                </tr>
-                                <tr>
-                                    <td>Wireless Headphones</td>
-                                    <td>$7,000</td>
-                                    <td>16</td>
+                                    <td><?= $fetch_top_customers['user_name']; ?></td>
+                                    <td><?= $fetch_top_customers['item_count']; ?></td>
+                                    <td>$<?= $fetch_top_customers['total_spent']; ?></td>
                                 </tr>
                             </tbody>
+                            <?php
+                                    }
+                                }else{
+                                    echo '<p class="empty">No customers found!</p>';
+                                }
+                            ?>
                         </table>
                     </div>
                     <div class="stat-table-content">
@@ -303,34 +279,57 @@ if(isset($_POST['delete_prod'])){
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Smartphone X</td>
-                                    <td>$15,000</td>
-                                    <td>pending</td>
-                                </tr>
-                                <tr>
-                                    <td>Laptop Pro</td>
-                                    <td>$12,000</td>
-                                    <td>pending</td>
-                                </tr>
-                                <tr>
-                                    <td>Tablet Mini</td>
-                                    <td>$8,000</td>
-                                    <td>pending</td>
-                                </tr>
-                                <tr>
-                                    <td>Smartwatch Z</td>
-                                    <td>$7,500</td>
-                                    <td>pending</td>
-                                </tr>
-                                <tr>
-                                    <td>Wireless Headphones</td>
-                                    <td>$7,000</td>
-                                    <td>pending</td>
+                                    <td>RLDSL3</td>
+                                    <td>Snag $5 off with this voucher!</td>
+                                    <td>expired</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class="stat-table-content">
+
+                </div>
+                <div class="stat-table-container">
+                <div class="stat-table-content">
+                        <h4>Recent Orders</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Products</th>
+                                    <th>Total Price</th>
+                                    <th>No of Items</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <?php
+                                $select_recent_orders = $conn->prepare("SELECT *, 
+                                                                        LENGTH(cart_id) - LENGTH(REPLACE(cart_id, ',', '')) + 1 AS item_count,
+                                                                        DATE_FORMAT(placed_on, '%m/%d/%y') AS placed_on
+                                                                        FROM `orders` LIMIT 5;"); 
+                                $select_recent_orders->execute();
+                                if($select_recent_orders->rowCount() > 0){
+                                while($fetch_recent_orders = $select_recent_orders->fetch(PDO::FETCH_ASSOC)){
+                            ?>
+                            <tbody>
+                                <tr>
+                                    <td><?= $fetch_recent_orders['name']; ?></td>
+                                    <td><?= $fetch_recent_orders['total_products']; ?></td>
+                                    <td><?= $fetch_recent_orders['total_price']; ?></td>
+                                    <td><?= $fetch_recent_orders['item_count']; ?></td>
+                                    <td><?= $fetch_recent_orders['payment_status']; ?></td>
+                                    <td><?= $fetch_recent_orders['placed_on']; ?></td>
+                                </tr>
+                            </tbody>
+                            <?php
+                                    }
+                                }else{
+                                    echo '<p class="empty">No orders found!</p>';
+                                }
+                            ?>
+                        </table>
+                    </div>
+                    <div class="stat-table-content" style="width: 35%;">
                         <h4>Top Selling Brands</h4>
                         <table>
                             <thead>
@@ -339,30 +338,30 @@ if(isset($_POST['delete_prod'])){
                                     <th>Sold</th>
                                 </tr>
                             </thead>
+                            <?php
+                                $select_prodcuts_brands = $conn->prepare("SELECT brand, SUM(sold) AS total_sold
+                                                                        FROM products2
+                                                                        GROUP BY brand
+                                                                        ORDER BY total_sold DESC LIMIT 5;"); 
+                                $select_prodcuts_brands->execute();
+                                if($select_prodcuts_brands->rowCount() > 0){
+                                while($fetch_prodcuts_brands = $select_prodcuts_brands->fetch(PDO::FETCH_ASSOC)){
+                            ?>
                             <tbody>
                                 <tr>
-                                    <td>Smartphone X</td>
-                                    <td>$15,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Laptop Pro</td>
-                                    <td>$12,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Tablet Mini</td>
-                                    <td>$8,000</td>
-                                </tr>
-                                <tr>
-                                    <td>Smartwatch Z</td>
-                                    <td>$7,500</td>
-                                </tr>
-                                <tr>
-                                    <td>Wireless Headphones</td>
-                                    <td>$7,000</td>
+                                    <td><?= $fetch_prodcuts_brands['brand']; ?></td>
+                                    <td><?= $fetch_prodcuts_brands['total_sold']; ?></td>
                                 </tr>
                             </tbody>
+                            <?php
+                                    }
+                                }else{
+                                    echo '<p class="empty">No brands found!</p>';
+                                }
+                            ?>
                         </table>
                     </div>
+
                 </div>
             </div>
             <div id="users-tab" class="tab-content">
@@ -395,7 +394,7 @@ if(isset($_POST['delete_prod'])){
                             <?php
                                 }
                             }else{
-                                echo '<p class="empty">No admin found!</p>';
+                                echo '<p class="empty">No admins found!</p>';
                             }
                             ?>
                         </table>
@@ -419,10 +418,13 @@ if(isset($_POST['delete_prod'])){
                             ?>
                             <tbody>
                                 <tr>
-                                    <td><?= $fetch_users['id']; ?></td>
-                                    <td><?= $fetch_users['user_name']; ?></td>
-                                    <td><?= $fetch_users['email']; ?></td>
-                                    <td><i class="fas fa-trash"></i></td>
+                                    <form action="" method="post">
+                                        <input type="hidden" name="user_id" value="<?= $fetch_users['id']; ?>">
+                                        <td><?= $fetch_users['id']; ?></td>
+                                        <td><?= $fetch_users['user_name']; ?></td>
+                                        <td><?= $fetch_users['email']; ?></td>
+                                        <td><button type="submit" class="fas fa-trash icon-btn" name="delete_user" onclick="return confirm('delete this from cart?');"></button></td>
+                                    </form>
                                 </tr>
                             </tbody>
                             <?php
@@ -438,22 +440,26 @@ if(isset($_POST['delete_prod'])){
             <div id="messages-tab" class="tab-content">
                 <ul class="messages">
                     <h3>Messages</h3>
+                    <?php
+                        $select_users = $conn->prepare("SELECT * FROM `messages`"); 
+                        $select_users->execute();
+                        if($select_users->rowCount() > 0){
+                        while($fetch_users = $select_users->fetch(PDO::FETCH_ASSOC)){
+                    ?>
                     <li>
-                        <strong>John Doe:</strong> Can I change my order?
-                        <span class="timestamp">2024-08-21 10:23 AM</span>
+                        <strong><?= $fetch_users['name']; ?>:</strong> <?= $fetch_users['message']; ?>
+                        <span class="timestamp"><?= $fetch_users['date_time']; ?></span>
                     </li>
-                    <li>
-                        <strong>Jane Smith:</strong> I didn't receive my package yet.
-                        <span class="timestamp">2024-08-20 08:15 AM</span>
-                    </li>
-                    <li>
-                        <strong>Bob Johnson:</strong> Thank you for the quick response!
-                        <span class="timestamp">2024-08-19 02:45 PM</span>
-                    </li>
+                    <?php
+                        }
+                    }else{
+                        echo '<p class="empty">No users found!</p>';
+                    }
+                    ?>
                 </ul>
             </div>
             <div id="orders-tab" class="tab-content">
-                <div class="orders">
+            <div class="orders">
                     <h3>Orders</h3>
                     <table>
                         <thead>
@@ -465,7 +471,7 @@ if(isset($_POST['delete_prod'])){
                                 <th>MOP</th>
                                 <th>Products</th>
                                 <th>Total</th>
-                                <th style="width: 120px;">Status</th>
+                                <th style="width: 130px;">Status</th>
                             </tr>
                         </thead>
                         <?php
@@ -476,6 +482,8 @@ if(isset($_POST['delete_prod'])){
                         ?>
                         <tbody>
                             <tr>
+                            <form action="" method="post">
+                                <input type="hidden" name="order_id" value="<?= $fetch_orders['id']; ?>">
                                 <td><?= $fetch_orders['id']; ?></td>
                                 <td><?= $fetch_orders['name']; ?></td>
                                 <td><?= $fetch_orders['address']; ?></td>
@@ -489,14 +497,15 @@ if(isset($_POST['delete_prod'])){
                                     if ($status === "completed") {
                                         echo '<p>Completed</p>';
                                     } else {
-                                        echo '<select>
-                                                <option value="pending"' . ($status === 'pending' ? ' selected' : '') . '>Pending</option>
-                                                <option value="complete"' . ($status === 'complete' ? ' selected' : '') . '>Complete</option>
-                                            </select>
-                                            <i class="fa-solid fa-pen-to-square"></i>';
+                                        echo '<select name="payment_status">
+                                                    <option value="pending"' . ($status === 'pending' ? ' selected' : '') . '>Pending</option>
+                                                    <option value="completed"' . ($status === 'completed' ? ' selected' : '') . '>Completed</option>
+                                                </select>
+                                                <button type="submit" class="fas fa-edit icon-btn" name="update_status"></button>';
                                     }
                                     ?>
                                 </td>
+                                </form>
                             </tr>
                         </tbody>
                         <?php
@@ -597,8 +606,8 @@ if(isset($_POST['delete_prod'])){
                             <p style="font-size:14px;">$<?= $fetch_product['price']; ?></p>
                             <div class="product-list-card-btn">
                                 <a href="update_product.php?update=<?= $fetch_products['id']; ?>" class="update-btn">update</a>
-                                <!-- <a href="products.php?delete=<?= $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('delete this product?');"><i class="fas fa-trash"></i></a> -->
-                                <button type="submit" class="fas fa-trash delete-btn" name="delete_prod" onclick="return confirm('delete this from cart?');"></button>
+                                <!-- <a href="products.php?delete=<?= $fetch_products['id']; ?>" class="icon-btn" onclick="return confirm('delete this product?');"><i class="fas fa-trash"></i></a> -->
+                                <button type="submit" class="fas fa-trash icon-btn" name="delete_prod" onclick="return confirm('delete this from cart?');"></button>
                             </div>
                         </div>
                     </form>

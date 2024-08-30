@@ -974,6 +974,15 @@ td:nth-child(odd) {
 .contact {
     background: #2a2d54;
 }
+.info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.info i{
+    font-size: 24px;
+    color: #4e4ffa;
+}
 .footer-top {padding: 112px 0 72px;}
 
 /*.footer-logo*/
