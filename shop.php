@@ -57,7 +57,7 @@ include 'components/cart-btn.php';
                         <input type="hidden" name="name" value="<?= $fetch_product['product_name']; ?>">
                         <input type="hidden" name="price" value="<?= $fetch_product['price']; ?>">
                         <input type="hidden" name="image" value="<?= $fetch_product['image_01']; ?>">
-					<div class="row">
+					<div class="row" style="margin: auto;">
 						<div class="col-lg-3 col-md-4 col-sm-6">
                             <a href="quickview.php?pid=<?= $fetch_product['id']; ?>">
                                 <div class="single-product-box">
@@ -96,8 +96,6 @@ include 'components/cart-btn.php';
                             echo '<p class="empty">No products found!</p>';
                         }
                         ?>
-						
-						
 					</div>
 				</div>
                 

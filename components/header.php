@@ -37,7 +37,7 @@
 						<li class=" scrolls actives"><a href="index.php">home</a></li>
 						<li class="scrolls"><a href="shop.php">all products</a></li>
 						<li class="scrolls"><a href="orders.php">orders</a></li>
-						<li class="scrolls"><a href="#contact">contact</a></li>
+						<li class="scrolls"><a href="contact.php">contact</a></li>
 						<li class="scrolls"><a href="search.php"><i class="fa-solid fa-magnifying-glass"></i></a></li>
 						<li class="scrolls"><a href="cart.php"><i class="fa-solid fa-cart-shopping"></i></a></li>
 						<li class="scrolls"><a><i class="fa-solid fa-user" data-toggle="modal" data-target="#myModal"></i></a></li>

@@ -191,7 +191,7 @@ if(isset($_POST['place_order'])){
                         </div>
                         <br>
                         <div class="checkout-payment-btn">
-                            <input type="submit" value="Place order" name="place_order">
+                            <input type="submit" value="Place order" name="place_order" onclick="window.location.href='cart.php'">
                             <a href="shop.php">Back to shop</a>
                         </div>
                     </div>

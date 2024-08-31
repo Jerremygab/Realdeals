@@ -97,9 +97,17 @@ if(isset($_POST['delete_prod'])){
 if(isset($_POST['delete_user'])){
 
     $user_id = $_POST['user_id'];
-    $delete_product = $conn->prepare("DELETE FROM `users` WHERE id = ?");
-    $delete_product->execute([$user_id]);
+    $delete_user = $conn->prepare("DELETE FROM `users` WHERE id = ?");
+    $delete_user->execute([$user_id]);
     $message[] = 'User deleted!';
+    // header('location:admin.php');
+}
+if(isset($_POST['delete_admin'])){
+
+    $admin_id = $_POST['admin_id'];
+    $delete_admin = $conn->prepare("DELETE FROM `admin` WHERE id = ?");
+    $delete_admin->execute([$admin_id]);
+    $message[] = 'Admin deleted!';
     // header('location:admin.php');
 }
 if(isset($_POST['update_status'])){
@@ -182,11 +190,11 @@ if(isset($_POST['update_status'])){
                         <p><?= $fetch_stats['message_count']; ?></p>
                     </div>
                     <div class="stat-item">
-                        <h4>Completed Orders</h4>
+                        <h4>Orders</h4>
                         <p><?= $fetch_stats['order_count']; ?></p>
                     </div>
                     <div class="stat-item">
-                        <h4>Total Products</h4>
+                        <h4>Products</h4>
                         <p><?= $fetch_stats['product_count']; ?></p>
                     </div>
                     <?php
@@ -202,6 +210,7 @@ if(isset($_POST['update_status'])){
                         <table>
                             <thead>
                                 <tr>
+                                    <th>Image</th>
                                     <th>Name</th>
                                     <th>Price</th>
                                     <th>Sold</th>
@@ -215,6 +224,7 @@ if(isset($_POST['update_status'])){
                             ?>
                             <tbody>
                                 <tr>
+                                    <td><img src="../assets/images/products/<?= $fetch_prodcuts_sold['image_01']; ?>" style="width: 45px;"></td>
                                     <td><?= $fetch_prodcuts_sold['product_name']; ?></td>
                                     <td><?= $fetch_prodcuts_sold['price']; ?></td>
                                     <td><?= $fetch_prodcuts_sold['sold']; ?></td>
@@ -385,10 +395,11 @@ if(isset($_POST['update_status'])){
                             ?>
                             <tbody>
                                 <tr>
+                                    <input type="hidden" name="admin_id" value="<?= $fetch_users['id']; ?>">
                                     <td><?= $fetch_admins['id']; ?></td>
                                     <td><?= $fetch_admins['name']; ?></td>
                                     <td><i class="fa-solid fa-pen-to-square"></i></i></td>
-                                    <td><i class="fas fa-trash"></i></td>
+                                    <td><button type="submit" class="fas fa-trash icon-btn" name="delete_admin" onclick="return confirm('delete this from cart?');"></button></td>
                                 </tr>
                             </tbody>
                             <?php
@@ -592,18 +603,18 @@ if(isset($_POST['update_status'])){
                 <div class="product-list-container">
                     <div class="product-list-content">
                     <?php
-                        $select_products = $conn->prepare("SELECT * FROM `products2` ORDER BY RAND();"); 
+                        $select_products = $conn->prepare("SELECT * FROM `products2`");
                         $select_products->execute();
                         if($select_products->rowCount() > 0){
-                        while($fetch_product = $select_products->fetch(PDO::FETCH_ASSOC)){
+                            while($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)){ 
                     ?>
                     <form action="" method="post">
                         <div class="product-list-card">
-                            <input type="hidden" name="product_id" value="<?= $fetch_product['id']; ?>">
-                            <img src="../assets/images/products/<?= $fetch_product['image_01']; ?>" alt="">
-                            <b><?= $fetch_product['product_name']; ?></b>
-                            <p style="font-size:12px;"><?= $fetch_product['brand']; ?> / <?= $fetch_product['category']; ?> / <?= $fetch_product['type']; ?> / <?= $fetch_product['color']; ?></p>
-                            <p style="font-size:14px;">$<?= $fetch_product['price']; ?></p>
+                            <input type="hidden" name="product_id" value="<?= $fetch_products['id']; ?>">
+                            <img src="../assets/images/products/<?= $fetch_products['image_01']; ?>" alt="">
+                            <b><?= $fetch_products['product_name']; ?></b>
+                            <p style="font-size:12px;"><?= $fetch_products['brand']; ?> / <?= $fetch_products['category']; ?> / <?= $fetch_products['type']; ?> / <?= $fetch_products['color']; ?></p>
+                            <p style="font-size:14px;">$<?= $fetch_products['price']; ?></p>
                             <div class="product-list-card-btn">
                                 <a href="update_product.php?update=<?= $fetch_products['id']; ?>" class="update-btn">update</a>
                                 <!-- <a href="products.php?delete=<?= $fetch_products['id']; ?>" class="icon-btn" onclick="return confirm('delete this product?');"><i class="fas fa-trash"></i></a> -->
@@ -620,6 +631,7 @@ if(isset($_POST['update_status'])){
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
     <script src="../assets/js/script.js"></script>

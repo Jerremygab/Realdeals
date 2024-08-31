@@ -72,7 +72,7 @@ include 'components/cart-btn.php';
 						<li class=" scrolls actives"><a href="index.php" style="color: #f5f7fa;">home</a></li>
 						<li class="scrolls"><a href="shop.php" style="color: #f5f7fa;">all products</a></li>
 						<li class="scrolls"><a href="orders.php" style="color: #f5f7fa;">orders</a></li>
-						<li class="scrolls"><a href="#contact" style="color: #f5f7fa;">contact</a></li>
+						<li class="scrolls"><a href="contact.php" style="color: #f5f7fa;">contact</a></li>
 						<li class="scrolls"><a href="search.php" style="color: #f5f7fa;"><i class="fa-solid fa-magnifying-glass"></i></a></li>
 						<li class="scrolls"><a href="cart.php" style="color: #f5f7fa;"><i class="fa-solid fa-cart-shopping"></i></a></li>
 						<li class="scrolls"><a><i class="fa-solid fa-user" data-toggle="modal" data-target="#myModal" style="color: #f5f7fa;"></i></a></li>
