@@ -631,7 +631,6 @@ if(isset($_POST['update_status'])){
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
     <script src="../assets/js/script.js"></script>

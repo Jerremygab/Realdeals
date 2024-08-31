@@ -84,10 +84,18 @@ include 'components/cart-btn.php';
 						
 						<!-- Modal content-->
 						<div class="modal-content" style="width: 350px;">
-								<?php          
+						<?php          
 									$count_cart_items = $conn->prepare("SELECT * FROM `cart` LEFT JOIN users ON cart.user_id = users.id WHERE user_id = ? AND cart.status = ''");
 									$count_cart_items->execute([$user_id]);
 									$total_cart_counts = $count_cart_items->rowCount();
+
+									$count_completed_items = $conn->prepare("SELECT * FROM `orders` WHERE user_id = ? AND payment_status = 'completed'");
+									$count_completed_items->execute([$user_id]);
+									$total_completed_counts = $count_completed_items->rowCount();
+
+									$count_total_spent = $conn->prepare("SELECT SUM(total_price) AS total_sold FROM orders WHERE user_id = ? AND payment_status = 'completed'");
+									$count_total_spent->execute([$user_id]);
+									$total_total_spent = $count_total_spent->rowCount();
 
 									$select_profile = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
 									$select_profile->execute([$user_id]);
@@ -104,18 +112,18 @@ include 'components/cart-btn.php';
 										<td>In Cart:</td>
 										<td><?= $total_cart_counts; ?></td>
 									</tr>
-									<!-- <tr>
+									<tr>
 										<td>My Purchase:</td>
-										<td>2</td>
+										<td><?= $total_completed_counts; ?></td>
 									</tr>
 									<tr>
 										<td>Total Spent</td>
-										<td>$209</td>
-									</tr> -->
+										<td>$<?= $total_total_spent; ?></td>
+									</tr>
 								</table>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="modal-btn" data-dismiss="modal">Update Profile</button>
+								<!-- <button type="button" class="modal-btn" data-dismiss="modal">Update Profile</button> -->
 								<a href="components/logout.php" class="modal-btn" onclick="return confirm('logout from the website?');">Logout</a> 
 								<button type="button" class="modal-btn" data-dismiss="modal">Close</button>
 							</div>
