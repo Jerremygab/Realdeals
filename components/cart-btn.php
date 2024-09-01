@@ -4,8 +4,8 @@
 if(isset($_POST['add_to_cart'])){
 
     if($user_id == ''){
-      //  header('location:login.php');
-      $message[] = 'Please login first';
+      header('location:login.php');
+      // $message[] = 'Please login first';
     }else{
  
       $pid = $_POST['pid'];

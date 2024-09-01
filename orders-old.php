@@ -53,7 +53,6 @@ if (isset($_POST['submit'])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <!-- title of site -->
     <title>Real Deals</title>
 
@@ -94,82 +93,85 @@ if (isset($_POST['submit'])) {
             $total_pending_counts = $count_pending_items->rowCount();
         ?>
     <section class="cart-section" id="cart-section">
-    <div class="card-section">
-        <div class="row">
-            <div class="col-md-8 carts">
-                <div class="title">
-                    <div class="row">
-                        <div class="col"><h4><b>Orders</b></h4></div>
-                        <div class="col align-self-center text-right text-muted"><?= $total_cart_counts; ?> items</div>
+        <div class="cart-container">
+            <div class="cart-content">
+                <div class="cart-products">
+                    <div class="cart-header">
+                        <h2>Orders</h2>
+                        <p><?= $total_cart_counts; ?> items</p>
                     </div>
-                </div>    
-                <div class="row">
                     <?php
-                        $select_cart = $conn->prepare("SELECT *
-                                                        FROM cart T1
-                                                        JOIN orders T2
-                                                        ON FIND_IN_SET(T1.id, T2.cart_id) > 0
-                                                        LEFT JOIN products2 T3 ON T3.id = T1.product_id
-                                                        WHERE T1.user_id = ? AND T1.status = 'Y'");
-                        $grand_total = 0;
-                        $select_cart->execute([$user_id]);
-                        if($select_cart->rowCount() > 0){
-                            while($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)){
-                                $sub_total = $fetch_cart['price'] * $fetch_cart['quantity'];
-                                $grand_total += $sub_total;
+                    $select_cart = $conn->prepare("SELECT *
+                                                    FROM cart T1
+                                                    JOIN orders T2
+                                                    ON FIND_IN_SET(T1.id, T2.cart_id) > 0
+                                                    LEFT JOIN products2 T3 ON T3.id = T1.product_id
+                                                    WHERE T1.user_id = ? AND T1.status = 'Y'");
+                    $grand_total = 0;
+                    $select_cart->execute([$user_id]);
+                    if($select_cart->rowCount() > 0){
+                        while($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)){
+                            $sub_total = $fetch_cart['price'] * $fetch_cart['quantity'];
+                            $grand_total += $sub_total;
                     ?>
-                    <form action="" method="post" style="width: 100%;">
-                    <input type="hidden" name="cart_id" value="<?= $fetch_cart['cart_id']; ?>">
-                    <div class="row main align-items-center border-bottom">
-                        <div class="col-2"><img class="img-fluid" src="assets/images/products/<?= $fetch_cart['image']; ?>"></div>
-                        <div class="col">
-                            <div class="row text-muted" style="font-size: 10px;"><?= $fetch_cart['brand']; ?> / <?= $fetch_cart['category']; ?> / <?= $fetch_cart['type']; ?> / <?= $fetch_cart['color']; ?></div>
-                            <div class="row"><?= $fetch_cart['product_name']; ?></div>
+                    <form action="" method="post">
+                        <input type="hidden" name="cart_id" value="<?= $fetch_cart['cart_id']; ?>">
+                        <div class="cart-item" style="justify-content: space-between;">
+                            <div class="cart-item-img">
+                                <img src="assets/images/products/<?= $fetch_cart['image']; ?>" alt="">
+                            </div>
+                            <div class="cart-item-name">
+                                <p><?= $fetch_cart['brand']; ?> / <?= $fetch_cart['category']; ?> / <?= $fetch_cart['type']; ?> / <?= $fetch_cart['color']; ?></p>
+                                <h3><?= $fetch_cart['product_name']; ?></h3>
+                            </div>
+                            <div class="cart-item-qty" style="padding: 0;">
+                                <p>(x<?= $fetch_cart['quantity']; ?>)</p>
+                            </div>
+                            <div class="cart-item-total" style="padding: 0; width:auto;">
+                                <p>$<?= $sub_total; ?></p>
+                            </div>
+                            <div class="cart-item-total" style="padding: 0;">
+                                <p><?= $fetch_cart['placed_on']; ?></p>
+                            </div>
+                            <div class="cart-item-icon" style="padding: 0; width: 90px;">
+                               <p style="text-transform: capitalize;"><?= $fetch_cart['payment_status']; ?></p>
+                            </div>
                         </div>
-                        <div class="col" style="max-width: 70px;">
-                            <p>(x<?= $fetch_cart['quantity']; ?>)</p>
-                        </div>
-                        <div class="col" style="max-width: 70px;">
-                            $<?= $sub_total; ?> 
-                        </div>
-                        <div class="col" style="max-width: 120px;">
-                                <?= $fetch_cart['placed_on']; ?>
-                        </div>
-                        <div class="col" style="max-width: 100px;">
-                                <?= $fetch_cart['payment_status']; ?>
-                        </div>
-                    </div>
+                    </form>
                     <?php
                         }
                     } else {
-                        echo '<p class="empty">Your cart is empty</p>';
+                        echo '<p class="empty">No orders yet</p>';
                     }
                     ?>
-                    </form>
+                    <div class="cart-footer">
+                        <a href="shop.php">Back to shop</a>
+                    </div>
                 </div>
-                <div class="back-to-shop"><a href="#">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
-            </div>
-            <div class="col-md-4 summary">
-                <div><h5><b>Summary</b></h5></div>
-                <hr>
-                <div class="row">
-                    <div class="col" style="padding-left:0;">Items <?= $total_cart_counts; ?></div>
-                </div>
-                <div class="row" style="padding-bottom: .5rem;">
-                    <div class="col" style="padding: 0;">Completed</div>
-                    <div class="col text-right"><?= $total_completed_counts; ?></div>
-                </div>
-                <div class="row" style="padding-bottom: .5rem;">
-                    <div class="col" style="padding: 0;">Pending</div>
-                    <div class="col text-right"><?= $total_pending_counts; ?></div>
-                </div>
-                <div class="row" style="padding-bottom: .5rem;">
-                    <div class="col" style="padding: 0;">Total Spent</div>
-                    <div class="col text-right">$<?= $grand_total; ?></div>
+                <div class="cart-summary">
+                    <div class="summary-contents" style="width: 300px;">
+                        <div class="summary-header">
+                            <h2>Summary</h2>
+                        </div>
+                        <div class="summary-item">
+                            <p><?= $total_cart_counts; ?> items</p>
+                        </div>
+                        <div class="summary-footer">
+                            <p>Completed:</p>
+                            <p><?= $total_completed_counts; ?></p>
+                        </div>
+                        <div class="summary-footer">
+                            <p>Pending:</p>
+                            <p><?= $total_pending_counts; ?></p>
+                        </div>
+                        <div class="summary-footer">
+                            <p>Total Spent:</p>
+                            <p>$<?= $grand_total; ?></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </section>
     <?php
 

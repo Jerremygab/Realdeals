@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 31, 2024 at 09:32 PM
+-- Generation Time: Sep 01, 2024 at 10:08 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -66,7 +66,13 @@ INSERT INTO `cart` (`id`, `user_id`, `product_id`, `product_name`, `price`, `qua
 (43, 3, 2, 'Logitech G305', 49, 1, 'g305-lilac-1.jpg', 'Y'),
 (44, 3, 1, 'Logitech G Pro X', 159, 1, '\\pro-x-superlight-1.jpg', 'Y'),
 (45, 3, 1, 'Logitech G Pro X', 159, 1, '\\pro-x-superlight-1.jpg', 'Y'),
-(46, 3, 1, 'Logitech G Pro X', 159, 1, '\r\nWarning:  Undefined array key ', '');
+(47, 3, 11, 'Logitech G560', 199, 1, 'g560-gallery-1.jpg', 'Y'),
+(48, 5, 10, 'Logitech Astro A30', 169, 1, 'pdp-gallery-a30-white-01.jpg', 'Y'),
+(49, 5, 9, 'Logitech G413 SE', 79, 1, 'g413-se-gallery-1.jpg', 'Y'),
+(50, 5, 11, 'Logitech G560', 199, 1, 'g560-gallery-1.jpg', 'Y'),
+(51, 3, 8, 'Logitech G915', 229, 1, 'us-g915-wireless-gallery-topdown-1.jpg', 'Y'),
+(53, 3, 12, 'Logitech G733', 139, 1, 'g733-black-gallery-1.jpg', ''),
+(54, 3, 2, 'Logitech G305', 49, 1, '\\g305-lilac-1.jpg', '');
 
 -- --------------------------------------------------------
 
@@ -121,7 +127,10 @@ CREATE TABLE `orders` (
 
 INSERT INTO `orders` (`id`, `cart_id`, `user_id`, `name`, `number`, `email`, `method`, `address`, `total_products`, `total_price`, `placed_on`, `payment_status`) VALUES
 (4, '43,44', 3, 'Jerremy Gabriel Galleto', '123123123', 'jerremygab@gmail.com', 'Cash on delivery', '122 Sala Tanauan City, Batangas, , Tanauan city, Batangas, Philippines - 4232', 'Logitech G305 (49 x 1) - Logitech G Pro X (159 x 1) ', 208, '2024-08-27', 'completed'),
-(5, '45', 3, 'Jerremy Gabriel Galleto', '123123213', 'jerremygab@gmail.com', 'Cash on delivery', '122 Sala Tanauan City, Batangas, , Tanauan city, Batangas, Philippines - 4232', 'Logitech G Pro X (159 x 1) ', 159, '2024-08-27', 'completed');
+(5, '45', 3, 'Jerremy Gabriel Galleto', '123123213', 'jerremygab@gmail.com', 'Cash on delivery', '122 Sala Tanauan City, Batangas, , Tanauan city, Batangas, Philippines - 4232', 'Logitech G Pro X (159 x 1) ', 159, '2024-08-27', 'completed'),
+(6, '47', 3, 'Jerremy Gabriel Galleto', '091238686', 'jerremygab@gmail.com', 'Credit card', '122, , Tanauan city, Batangas, Philippines - 4232', 'Logitech G560 (199 x 1) ', 199, '2024-08-31', 'completed'),
+(7, '48,49,50', 5, 'Jumbo hatdog', '0912387896', 'Jumbog@hatdog', 'Cash on delivery', '123, , tanauan, batangas, Pelepens - 1234', 'Logitech Astro A30 (169 x 1)  - Logitech G413 SE (79 x 1)  - Logitech G560 (199 x 1) ', 447, '2024-08-31', 'completed'),
+(8, '51', 3, 'Jerremy Gabriel Galleto', '123', 'jerremygab@gmail.com', 'Cash on delivery', '122 , , Tanauan city, Batangas, Philippines - 4232', 'Logitech G915 (229 x 1) ', 229, '2024-08-31', 'completed');
 
 -- --------------------------------------------------------
 
@@ -256,7 +265,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `user_name`, `email`, `password`) VALUES
-(3, 'qwe', 'qwer@z', '601f1889667efaebb33b8c12572835da3f027f78');
+(3, 'qwe', 'qwer@z', '601f1889667efaebb33b8c12572835da3f027f78'),
+(5, 'gabz', 'gabz@gabz', '40bd001563085fc35165329ea1ff5c5ecbdbbeef');
 
 -- --------------------------------------------------------
 
@@ -352,7 +362,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `messages`
@@ -364,7 +374,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `payment`
@@ -388,7 +398,7 @@ ALTER TABLE `products2`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `wishlist`

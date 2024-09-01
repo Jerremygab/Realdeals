@@ -17,12 +17,16 @@ if(isset($_POST['delete'])){
     $delete_cart_item->execute([$cart_id]);
 }
 
-if(isset($_POST['update_qty'])){
+if(isset($_POST['update_qty_plus'])){
     $cart_id = $_POST['cart_id'];
-    $qty = $_POST['qty'];
-    $qty = filter_var($qty, FILTER_SANITIZE_STRING);
-    $update_qty = $conn->prepare("UPDATE `cart` SET quantity = ? WHERE id = ?");
-    $update_qty->execute([$qty, $cart_id]);
+    $update_qty = $conn->prepare("UPDATE `cart` SET quantity = quantity + 1 WHERE id = ?");
+    $update_qty->execute([$cart_id]);
+    $message[] = 'Quantity Updated';
+}
+if(isset($_POST['update_qty_minus'])){
+    $cart_id = $_POST['cart_id'];
+    $update_qty = $conn->prepare("UPDATE `cart` SET quantity - 1 WHERE id = ?");
+    $update_qty->execute([$cart_id]);
     $message[] = 'Quantity Updated';
 }
 
@@ -93,6 +97,10 @@ if(isset($_POST['update_qty'])){
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <!-- title of site -->
     <title>Real Deals</title>
 
@@ -141,43 +149,38 @@ if(isset($_POST['update_qty'])){
             $total_cart_counts = $count_cart_items->rowCount();
         ?>
     <section class="cart-section" id="cart-section">
-        <div class="cart-container">
-            <div class="cart-content">
-                <div class="cart-products">
-                    <div class="cart-header">
-                        <h2>Shopping Cart</h2>
-                        <p><?= $total_cart_counts; ?> items</p>
+    <div class="card-section">
+        <div class="row">
+            <div class="col-md-8 carts">
+                <div class="title">
+                    <div class="row">
+                        <div class="col"><h4><b>Shopping Cart</b></h4></div>
+                        <div class="col align-self-center text-right text-muted"><?= $total_cart_counts; ?> items</div>
                     </div>
+                </div>    
+                <div class="row">
                     <?php
-                    $grand_total = 0;
-                    $select_cart = $conn->prepare("SELECT cart.id AS cart_id, products2.id AS product_id, cart.*, products2.*, users.* FROM cart LEFT JOIN products2 ON products2.id = cart.product_id LEFT JOIN users ON cart.user_id = users.id WHERE cart.user_id = ? AND cart.status = ''");
-                    $select_cart->execute([$user_id]);
-                    if($select_cart->rowCount() > 0){
-                        while($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)){
-                            // $sub_total = $fetch_cart['price'] * $fetch_cart['quantity'];
+                        $grand_total = 0;
+                        $select_cart = $conn->prepare("SELECT cart.id AS cart_id, products2.id AS product_id, cart.*, products2.*, users.* FROM cart LEFT JOIN products2 ON products2.id = cart.product_id LEFT JOIN users ON cart.user_id = users.id WHERE cart.user_id = ? AND cart.status = ''");
+                        $select_cart->execute([$user_id]);
+                        if($select_cart->rowCount() > 0){
+                            while($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)){
+                                // $sub_total = $fetch_cart['price'] * $fetch_cart['quantity'];
                     ?>
-                    <form action="" method="post">
-                        <input type="hidden" name="cart_id" value="<?= $fetch_cart['cart_id']; ?>">
-                        <div class="cart-item">
-                            <div class="cart-item-img">
-                                <img src="assets/images/products/<?= $fetch_cart['image']; ?>" alt="">
-                            </div>
-                            <div class="cart-item-name">
-                                <p><?= $fetch_cart['brand']; ?> / <?= $fetch_cart['category']; ?> / <?= $fetch_cart['type']; ?> / <?= $fetch_cart['color']; ?></p>
-                                <h3><?= $fetch_cart['product_name']; ?></h3>
-                            </div>
-                            <div class="cart-item-qty">
-                                <input type="number" name="qty" class="qty" min="1" max="5" onkeypress="if(this.value.length == 2) return false;" value="<?= $fetch_cart['quantity']; ?>">
-                                <button type="submit" class="fas fa-edit" name="update_qty"></button>
-                            </div>
-                            <div class="cart-item-total">
-                                <p>$<?= $sub_total = ($fetch_cart['price'] * $fetch_cart['quantity']); ?></p>
-                            </div>
-                            <div class="cart-item-icon">
-                                <button type="submit" class="fas fa-trash" name="delete" onclick="return confirm('delete this from cart?');"></button>
-                            </div>
+                    <form action="" method="post" style="width: 100%;">
+                    <input type="hidden" name="cart_id" value="<?= $fetch_cart['cart_id']; ?>">
+                    <div class="row main align-items-center border-bottom">
+                        <div class="col-2"><img class="img-fluid" src="assets/images/products/<?= $fetch_cart['image']; ?>"></div>
+                        <div class="col">
+                            <div class="row text-muted" style="font-size: 10px;"><?= $fetch_cart['brand']; ?> / <?= $fetch_cart['category']; ?> / <?= $fetch_cart['type']; ?> / <?= $fetch_cart['color']; ?></div>
+                            <div class="row"><?= $fetch_cart['product_name']; ?></div>
                         </div>
-                    </form>
+                        <div class="col" style="display: flex; justify-content: center; gap: 1rem; max-width: 140px;">
+                            <button type="submit" class="fas fa-minus btn-icon" name="update_qty_minus" <?= ($fetch_cart['quantity'] > 1)?'':'disabled'; ?>></button><a href="#" class="border"><?= $fetch_cart['quantity']; ?></a><button type="submit" class="fas fa-plus btn-icon" name="update_qty_plus"></button>
+                        </div>
+                        <div class="col" style="max-width: 100px;">$<?= $sub_total = ($fetch_cart['price'] * $fetch_cart['quantity']); ?></div>
+                        <div class="col" style="max-width: 20px;"><span class="close"><button type="submit" class="fas fa-trash btn-icon" name="delete" onclick="return confirm('delete this from cart?');"></button></span></div>
+                    </div>
                     <?php
                     $grand_total += $sub_total;
                         }
@@ -185,69 +188,29 @@ if(isset($_POST['update_qty'])){
                         echo '<p class="empty">Your cart is empty</p>';
                     }
                     ?>
-                    <div class="cart-footer">
-                        <a href="shop.php">Back to shop</a>
-                    </div>
+                    </form>
                 </div>
-                <div class="cart-summary">
-                    <div class="summary-contents">
-                        <div class="summary-header">
-                            <h2>Summary</h2>
-                        </div>
-                        <div class="summary-item">
-                            <p><?= $total_cart_counts; ?> items</p>
-                            <p>$<?= $grand_total; ?></p>
-                        </div>
-                        <!-- <div class="summary-shipment">
-                            <p>Shipment</p>
-                            <select id="option_select" name="option_select" onchange="updateShipTotal(this.value)" >
-                                <option value="1">Same day delivery (+$5)</option>
-                                <option value="2">Express Delivery (+$3)</option>
-                                <option value="3" selected>Standard Delivery (+$1)</option>
-                            </select>
-                        </div> -->
-                        <div class="summary-voucher">
-                            <p>Voucher Code</p>
-                            <input type="text" placeholder="eg. RLDLS3" maxlength="6">
-                        </div>
-                        <div class="summary-footer" style="display: none;">
-                            <p>Grand Total:</p>
-                            <!-- <p>$<span id="grand_total"><?= $grand_total; ?></span></p> -->
-                        </div>
-                        <div class="summary-footer" style="display: none;">
-                            <p>Shipping Cost:</p>
-                            <!-- <p>$<span id="ship_total"><?= $ship_total; ?></span></p> -->
-                        </div>
-                        <div class="summary-footer">
-                            <p>Final Total:</p>
-                            <!-- <p>$<span id="final_total_display"><?= $grand_total + $ship_total; ?></span></p> -->
-                            <p>$<?= $grand_total; ?></p>
-                        </div>
-                        <div class="summary-btn">
-                            <?php          
-                                $select_profile = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
-                                $select_profile->execute([$user_id]);
-                                if($select_profile->rowCount() > 0){
-                                $fetch_profile = $select_profile->fetch(PDO::FETCH_ASSOC);
-                            ?>
-                            <form action="checkout.php" method="post">
-                                <input type="hidden" name="user_id" value="<?= $fetch_profile['id']; ?>">
-                                <input type="hidden" name="user_name" value="<?= $fetch_profile['user_name']; ?>">
-                                <input type="hidden" name="no_of_items" value="<?= $total_cart_counts; ?>">
-                                <!-- <input type="hidden" name="grand_total_input" id="grand_total_input" value="<?= $grand_total; ?>"> -->
-                                <!-- <input type="hidden" name="ship_total_input" id="ship_total_input" value="<?= $ship_total; ?>"> -->
-                                <!-- <input type="hidden" name="final_total_input" id="final_total_input" value="<?= $grand_total + $ship_total; ?>"> -->
-                                <!-- <input type="submit" name="checkout" value="Checkout" <?= ($grand_total > 1)?'':'disabled'; ?>> -->
-                                <input type="submit" name="checkout" value="Checkout">
-                            </form>
-                            <?php
-									}
-								?>
-                        </div>
-                    </div>
+                <div class="back-to-shop"><a href="shop.php">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
+            </div>
+            <div class="col-md-4 summary">
+                <div><h5><b>Summary</b></h5></div>
+                <hr>
+                <div class="row">
+                    <div class="col" style="padding-left:0;">ITEMS <?= $total_cart_counts; ?></div>
+                    <div class="col text-right">$<?= $grand_total; ?></div>
                 </div>
+                <p>Voucher Code</p>
+                <input placeholder="Enter your code" style="margin-bottom: 2rem; border: 1px solid #aaa; padding: 0.5rem;">
+                <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                    <div class="col" style="padding: 0;">TOTAL PRICE</div>
+                    <div class="col text-right">$<?= $grand_total; ?></div>
+                </div>
+                <form action="checkout.php" method="post">
+                    <button type="submit" name="checkout" class="btn" <?= ($grand_total > 1)?'':'disabled'; ?>>Checkout</button>
+                </form>
             </div>
         </div>
+    </div>
     </section>
     <?php
 

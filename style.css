@@ -153,3 +153,121 @@
     color: #4e4ffa;
 
 }
+.title{
+    margin-bottom: 5vh;
+}
+.card-section{
+    margin: auto;
+    max-width: 1300px;
+    width: 100%;
+    box-shadow: 0 12px 30px 0px rgba(0, 1, 193, .2);
+    border: transparent;
+}
+@media(max-width:767px){
+    .card-section{
+        margin: 3vh auto;
+    }
+}
+.carts{
+    background-color: #fff;
+    padding: 4vh 5vh;
+    max-height: 600px;
+    overflow-y: scroll;
+}
+@media(max-width:767px){
+    .carts{
+        padding: 4vh;
+        max-height: 400px;
+        overflow-y: scroll;
+    }
+}
+/* @media(min-width:767px){
+    .carts{
+        padding: 4vh;
+        max-height: 400px;
+        overflow-y: scroll;
+    }
+} */
+.summary{
+    background-color: #f5f6fa;
+    padding: 4vh;
+    color: rgb(65, 65, 65);
+}
+@media(max-width:767px){
+    .summary{
+    border-top-right-radius: unset;
+    border-bottom-left-radius: 1rem;
+    }
+}
+.summary .col-2{
+    padding: 0;
+}
+.summary .col-10
+{
+    padding: 0;
+}.row{
+    margin: 0;
+}
+.title b{
+    font-size: 1.5rem;
+}
+.main{
+    margin: 0;
+    padding: 2vh 0;
+    width: 100%;
+}
+.col-2, .col{
+    padding: 0 1vh;
+}
+.border{
+    padding: 0 1vh;
+}
+p{
+    margin: 1rem 0 .5rem;
+}
+.close{
+    margin-left: auto;
+    font-size: 0.7rem;
+    line-height: unset;
+    opacity: 1;
+}
+.img-fluid{
+    width: 70px
+}
+.back-to-shop{
+    margin-top: 4.5rem;
+}
+hr{
+    margin-top: 1.25rem;
+}
+.btn-icon{
+    color: #4e4ffa;
+    border: none;
+    background: none;
+    margin: 0 3px;
+    font-size: 10px;
+    line-height: unset;
+}
+.btn{
+    font-size: 14px;
+    width: 100%;
+    background: none;
+    border: 1px solid #4e4ffa;
+    border-radius: 0;
+    color: #818998;
+    padding: .6rem 2rem;
+    transition: .3s ease all;
+}
+.btn:focus{
+    box-shadow: none;
+    outline: none;
+    box-shadow: none;
+    color: white;
+    -webkit-box-shadow: none;
+    -webkit-user-select: none;
+    transition: none; 
+}
+.btn:hover{
+    color: #fff;
+    background-color: #4e4ffa;
+}

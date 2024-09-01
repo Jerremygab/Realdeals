@@ -261,25 +261,29 @@ include 'components/cart-btn.php';
 				</div><!--/.section-header-->
 				<div class="new-cars-content">
 					<div class="owl-carousel owl-theme" id="new-cars-carousel">
+							<?php
+								$select_products = $conn->prepare("SELECT * FROM `products2` ORDER BY RAND() LIMIT 3"); 
+								$select_products->execute();
+								if($select_products->rowCount() > 0){
+								while($fetch_product = $select_products->fetch(PDO::FETCH_ASSOC)){
+							?>
 						<div class="new-cars-item">
 							<div class="single-new-cars-item">
 								<div class="row">
 									<div class="col-md-7 col-sm-12">
 										<div class="new-cars-img">
-											<img src="assets/images/new/i9-14.png" alt="img"/>
+											<img src="assets/images/products/<?= $fetch_product['image_01']; ?>" alt="img"/>
 										</div><!--/.new-cars-img-->
 									</div>
 									<div class="col-md-5 col-sm-12">
 										<div class="new-cars-txt">
 											 
-											<h2><a href="#">Intel Core <span> i9-14900HX</span></a></h2>
-											<p>
-												This is a newly released CPU that contains 24 Cores and 32 Threads. The Intel Core i9-14900HX also has great single threaded performance that will serve well in games.
-											</p>
+											<h2><a href="#"><?= $fetch_product['product_name']; ?></a></h2>
+											<p><?= $fetch_product['description']; ?></p>
 											<p class="new-cars-para2">
 												Is this CPU Good for Gaming? Yes, this is a high end chip that would be great for gaming.
 											</p>
-											<button class="welcome-btn new-cars-btn" onclick="window.location.href='#'">
+											<button class="welcome-btn new-cars-btn" onclick="window.location.href='quickview.php?pid=<?= $fetch_product['id']; ?>'">
 												View more
 											</button>
 										</div><!--/.new-cars-txt-->	
@@ -287,55 +291,12 @@ include 'components/cart-btn.php';
 								</div><!--/.row-->
 							</div><!--/.single-new-cars-item-->
 						</div><!--/.new-cars-item-->
-						<div class="new-cars-item">
-							<div class="single-new-cars-item">
-								<div class="row">
-									<div class="col-md-7 col-sm-12">
-										<div class="new-cars-img">
-											<img src="assets/images/new/4070.png" alt="img"/>
-										</div><!--/.new-cars-img-->
-									</div>
-									<div class="col-md-5 col-sm-12">
-										<div class="new-cars-txt">
-											<h2><a href="#">GeForce RTX 4070 Super</a></h2>
-											<p>
-												The RTX 4070 was already a great graphics card, but Nvidia made it even better with a Super refresh. On top of that the RTX 4070 Super has enough power to press up to 4K. 
-											<p class="new-cars-para2">
-												Midrange to high-end gamers looking for a GPU that can handle the most demanding games at 1440p.
-											</p>
-											<button class="welcome-btn new-cars-btn" onclick="window.location.href='#'">
-												View more
-											</button>
-										</div><!--/.new-cars-txt-->	
-									</div><!--/.col-->
-								</div><!--/.row-->	
-							</div><!--/.single-new-cars-item-->
-						</div><!--/.new-cars-item-->
-						<div class="new-cars-item">
-							<div class="single-new-cars-item">
-								<div class="row">
-									<div class="col-md-7 col-sm-12">
-										<div class="new-cars-img">
-											<img src="assets/images/new/nzxt.png" alt="img"/>
-										</div><!--/.new-cars-img-->
-									</div>
-									<div class="col-md-5 col-sm-12">
-										<div class="new-cars-txt">
-											<h2><a href="#">NZXT H9 Flow</a></h2>
-											<p>
-												The H9 Flow is designed to cool off powerful GPUs with its expansive thermal capabilities, featuring the capacity for ten fans and numerous 360mm radiator mounting options.
-											</p>
-											<p class="new-cars-para2">
-												Offering room for the latest NVIDIA 40 Series and AMD 7000 Series cards.
-											</p>
-											<button class="welcome-btn new-cars-btn" onclick="window.location.href='#'">
-												view more
-											</button>
-										</div><!--/.new-cars-txt-->	
-									</div><!--/.col-->
-								</div><!--/.row-->
-							</div><!--/.single-new-cars-item-->
-						</div><!--/.new-cars-item-->
+								<?php
+									}
+								}else{
+									echo '<p class="empty">No products found!</p>';
+								}
+								?>
 					</div><!--/#new-cars-carousel-->
 				</div><!--/.new-cars-content-->
 			</div><!--/.container-->
@@ -352,86 +313,42 @@ include 'components/cart-btn.php';
 				</div><!--/.section-header-->
 				<div class="featured-cars-content">
 					<div class="row">
-						<div class="col-lg-3 col-md-4 col-sm-6">
-							<div class="single-featured-cars">
-								<div class="featured-img-box">
-									<div class="featured-cars-img">
-										<img src="assets/images/featured/pro-x-superlight.jpg" alt="">
+						<?php
+							$select_products = $conn->prepare("SELECT * FROM `products2` ORDER BY RAND() LIMIT 4"); 
+							$select_products->execute();
+							if($select_products->rowCount() > 0){
+							while($fetch_product = $select_products->fetch(PDO::FETCH_ASSOC)){
+						?>
+						<form action="" method="post">
+							<input type="hidden" name="pid" value="<?= $fetch_product['id']; ?>">
+							<input type="hidden" name="name" value="<?= $fetch_product['product_name']; ?>">
+							<input type="hidden" name="price" value="<?= $fetch_product['price']; ?>">
+							<input type="hidden" name="image" value="<?= $fetch_product['image_01']; ?>">
+							<div class="col-lg-3 col-md-4 col-sm-6">
+								<div class="single-featured-cars">
+									<div class="featured-img-box">
+										<div class="featured-cars-img">
+											<img src="assets/images/products/<?= $fetch_product['image_01']; ?>" alt="">
+										</div>
 									</div>
-								</div>
-								<div class="featured-cars-txt">
-									<h2><a href="#">Logitech G Pro X </a></h2>
-									<h3>$129.99</h3>
-									<p>
-										Less than 63 grams. Advanced low-latency LIGHTSPEED wireless. Sub-micron precision with HERO 25K sensor.
-									</p>
-									<div class="cart-btn">
-										<p>View More</p>
-										<i class="fa-solid fa-cart-shopping cart"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-4 col-sm-6">
-							<div class="single-featured-cars">
-								<div class="featured-img-box">
-									<div class="featured-cars-img">
-										<img src="assets/images/featured/pro-x-superlight.jpg" alt="">
-									</div>
-								</div>
-								<div class="featured-cars-txt">
-									<h2><a href="#">Logitech G Pro X </a></h2>
-									<h3>$129.99</h3>
-									<p>
-										Less than 63 grams. Advanced low-latency LIGHTSPEED wireless. Sub-micron precision with HERO 25K sensor.
-									</p>
-									<div class="cart-btn">
-										<p>View More</p>
-										<i class="fa-solid fa-cart-shopping cart"></i>
+									<div class="featured-cars-txt">
+										<h2><a href="#"><?= $fetch_product['product_name']; ?> </a></h2>
+										<h3>$<?= $fetch_product['price']; ?></h3>
+										<p><?= $fetch_product['description']; ?></p>
+										<div class="cart-btn">
+											<p onclick="window.location.href='quickview.php?pid=<?= $fetch_product['id']; ?>'">View More</p>
+											<button type="submit" class="fas fa-shopping-cart cart" name="add_to_cart"></button>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="col-lg-3 col-md-4 col-sm-6">
-							<div class="single-featured-cars">
-								<div class="featured-img-box">
-									<div class="featured-cars-img">
-										<img src="assets/images/featured/pro-x-superlight.jpg" alt="">
-									</div>
-								</div>
-								<div class="featured-cars-txt">
-									<h2><a href="#">Logitech G Pro X </a></h2>
-									<h3>$129.99</h3>
-									<p>
-										Less than 63 grams. Advanced low-latency LIGHTSPEED wireless. Sub-micron precision with HERO 25K sensor.
-									</p>
-									<div class="cart-btn">
-										<p>View More</p>
-										<i class="fa-solid fa-cart-shopping cart"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-4 col-sm-6">
-							<div class="single-featured-cars">
-								<div class="featured-img-box">
-									<div class="featured-cars-img">
-										<img src="assets/images/featured/pro-x-superlight.jpg" alt="">
-									</div>
-								</div>
-								<div class="featured-cars-txt">
-									<h2><a href="#">Logitech G Pro X </a></h2>
-									<h3>$129.99</h3>
-									<p>
-										Less than 63 grams. Advanced low-latency LIGHTSPEED wireless. Sub-micron precision with HERO 25K sensor.
-									</p>
-									<div class="cart-btn">
-										<p>View More</p>
-										<i class="fa-solid fa-cart-shopping cart"></i>
-									</div>
-								</div>
-							</div>
-						</div>
+						</form>
+						<?php
+							}
+						}else{
+							echo '<p class="empty">No products found!</p>';
+						}
+						?>
 					</div>
 				</div>
 			</div><!--/.container-->

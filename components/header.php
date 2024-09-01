@@ -19,7 +19,7 @@
 		<!-- Start Navigation -->
 		<nav class="navbar navbar-default bootsnav  navbar-sticky navbar-scrollspy"  data-minus-value-desktop="70" data-minus-value-mobile="55" data-speed="1000">
 
-			<div class="container">
+			<div class="container" style="flex-wrap: nowrap;">
 
 				<!-- Start Header Navigation -->
 				<div class="navbar-header">
@@ -33,7 +33,7 @@
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
-					<ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+					<ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp" style="flex-direction: row;">
 						<li class=" scrolls actives"><a href="index.php">home</a></li>
 						<li class="scrolls"><a href="shop.php">all products</a></li>
 						<li class="scrolls"><a href="orders.php">orders</a></li>
