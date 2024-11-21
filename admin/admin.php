@@ -226,7 +226,7 @@ if(isset($_POST['update_status'])){
                                 <tr>
                                     <td><img src="../assets/images/products/<?= $fetch_prodcuts_sold['image_01']; ?>" style="width: 45px;"></td>
                                     <td><?= $fetch_prodcuts_sold['product_name']; ?></td>
-                                    <td><?= $fetch_prodcuts_sold['price']; ?></td>
+                                    <td>$<?= $fetch_prodcuts_sold['price']; ?></td>
                                     <td><?= $fetch_prodcuts_sold['sold']; ?></td>
                                 </tr>
                             </tbody>
@@ -325,7 +325,7 @@ if(isset($_POST['update_status'])){
                                 <tr>
                                     <td><?= $fetch_recent_orders['name']; ?></td>
                                     <td><?= $fetch_recent_orders['total_products']; ?></td>
-                                    <td><?= $fetch_recent_orders['total_price']; ?></td>
+                                    <td>$<?= $fetch_recent_orders['total_price']; ?></td>
                                     <td><?= $fetch_recent_orders['item_count']; ?></td>
                                     <td><?= $fetch_recent_orders['payment_status']; ?></td>
                                     <td><?= $fetch_recent_orders['placed_on']; ?></td>

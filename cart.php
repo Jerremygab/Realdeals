@@ -17,18 +17,32 @@ if(isset($_POST['delete'])){
     $delete_cart_item->execute([$cart_id]);
 }
 
-if(isset($_POST['update_qty_plus'])){
+if(isset($_POST['update_qty'])){
     $cart_id = $_POST['cart_id'];
-    $update_qty = $conn->prepare("UPDATE `cart` SET quantity = quantity + 1 WHERE id = ?");
-    $update_qty->execute([$cart_id]);
+    $qty = $_POST['qty'];
+    $qty = filter_var($qty, FILTER_SANITIZE_STRING);
+    $update_qty = $conn->prepare("UPDATE `cart` SET quantity = ? WHERE id = ?");
+    $update_qty->execute([$qty, $cart_id]);
     $message[] = 'Quantity Updated';
 }
-if(isset($_POST['update_qty_minus'])){
-    $cart_id = $_POST['cart_id'];
-    $update_qty = $conn->prepare("UPDATE `cart` SET quantity - 1 WHERE id = ?");
-    $update_qty->execute([$cart_id]);
-    $message[] = 'Quantity Updated';
-}
+// if(isset($_POST['update_qty_plus'])){
+//     $cart_id = $_POST['cart_id'];
+//     $qty = $_POST['qty'];
+//     $qty = filter_var($qty, FILTER_SANITIZE_STRING);
+//     $newqty = $qty + 1;
+//     $update_qty = $conn->prepare("UPDATE `cart` SET quantity = ? WHERE id = ?");
+//     $update_qty->execute([$newqty, $cart_id]);
+//     $message[] = 'Quantity Updated';
+// }
+// if(isset($_POST['update_qty_minus'])){
+//     $cart_id = $_POST['cart_id'];
+//     $qty = $_POST['qty'];
+//     $qty = filter_var($qty, FILTER_SANITIZE_STRING);
+//     $newqty = $qty -1;
+//     $update_qty = $conn->prepare("UPDATE `cart` SET quantity = ? WHERE id = ?");
+//     $update_qty->execute([$cart_id,$newqty]);
+//     $message[] = 'Quantity Updated';
+// }
 
 // if (isset($_POST['checkout'])) {
 //     $user_id = $_POST['user_id'];
@@ -159,6 +173,7 @@ if(isset($_POST['update_qty_minus'])){
                     </div>
                 </div>    
                 <div class="row">
+                    <form action="" method="post" style="width: 100%;">
                     <?php
                         $grand_total = 0;
                         $select_cart = $conn->prepare("SELECT cart.id AS cart_id, products2.id AS product_id, cart.*, products2.*, users.* FROM cart LEFT JOIN products2 ON products2.id = cart.product_id LEFT JOIN users ON cart.user_id = users.id WHERE cart.user_id = ? AND cart.status = ''");
@@ -167,8 +182,7 @@ if(isset($_POST['update_qty_minus'])){
                             while($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)){
                                 // $sub_total = $fetch_cart['price'] * $fetch_cart['quantity'];
                     ?>
-                    <form action="" method="post" style="width: 100%;">
-                    <input type="hidden" name="cart_id" value="<?= $fetch_cart['cart_id']; ?>">
+                    <input type="text" name="cart_id" value="<?= $fetch_cart['cart_id']; ?>">
                     <div class="row main align-items-center border-bottom">
                         <div class="col-2"><img class="img-fluid" src="assets/images/products/<?= $fetch_cart['image']; ?>"></div>
                         <div class="col">
@@ -176,10 +190,13 @@ if(isset($_POST['update_qty_minus'])){
                             <div class="row"><?= $fetch_cart['product_name']; ?></div>
                         </div>
                         <div class="col" style="display: flex; justify-content: center; gap: 1rem; max-width: 140px;">
-                            <button type="submit" class="fas fa-minus btn-icon" name="update_qty_minus" <?= ($fetch_cart['quantity'] > 1)?'':'disabled'; ?>></button><a href="#" class="border"><?= $fetch_cart['quantity']; ?></a><button type="submit" class="fas fa-plus btn-icon" name="update_qty_plus"></button>
+                            <input type="number" name="qty" class="qty border" min="1" max="5" onkeypress="if(this.value.length == 2) return false;" value="<?= $fetch_cart['quantity']; ?>">
+                            <button type="submit" class="fas fa-edit btn-icon" name="update_qty"></button>
                         </div>
                         <div class="col" style="max-width: 100px;">$<?= $sub_total = ($fetch_cart['price'] * $fetch_cart['quantity']); ?></div>
-                        <div class="col" style="max-width: 20px;"><span class="close"><button type="submit" class="fas fa-trash btn-icon" name="delete" onclick="return confirm('delete this from cart?');"></button></span></div>
+                        <div class="col" style="max-width: 20px;">
+                            <button type="submit" class="fas fa-trash btn-icon" name="delete" onclick="return confirm('delete this from cart?');"></button>
+                        </div>
                     </div>
                     <?php
                     $grand_total += $sub_total;
